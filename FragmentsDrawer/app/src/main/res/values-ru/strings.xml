@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Навигация</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="menu_home">Калькулятор</string>
+    <string name="menu_about_us">О нас</string>
+    <string name="menu_send_request">Проблема</string>
+    <string name="menu_share">Поделиться</string>
+    <string name="menu_send">Отправить</string>
+
+    <string name="hello_blank_fragment">Всем привет!</string>
+    <string name="home_calculator">Калькулятор</string>
+    <string name="home_equations">Уравнения</string>
+    <string name="home_history">История</string>
+    <string name="alert_situation_message">Похоже в вашей функции ошибка... Мы советуем ее еще раз проверить</string>
+    <string name="home_solution">Решения</string>
+    <string name="solution_steps">Шаги Решения</string>
+    <string name="more">Подробнее</string>
+    <string name="next">Далее</string>
+    <string name="solution_title">Решение</string>
+    <string name="about_us_app_description">logic. - это мобильный калькулятор логический функций. Базируясь на библиотеке Jetpack, он использует такие технологии, как LiveData, DataBinding и паттерн MVVM, все, чтобы ваш опыт был только приятнее</string>
+    <string name="about_us_contacts_description_full">Проект полностью open-source. Я буду рад любым правкам и готов предоставить любую необходимую информацию.</string>
+    <string name="about_us_contacts">Контакты:</string>
+    <string name="home_snackbar_alert">Функция неверна. Пожалуйста, повторите ввод</string>
+    <string name="send_request_greeting">О нет!.. Что у Вас случилось?</string>
+    <string name="send_request_broad_input_hint">Опишите проблему</string>
+    <string name="send_request_broad_greeting_explanation">Пожалуйста, опишите проблему, а также ваши действия в момент ее появления</string>
+    <string name="send_request_choosing_answers_hint">Появление</string>
+    <string name="send_request_choosing_answers_explanation">Пожалуйста, выберете место, в котором была замечена ошибка</string>
+    <string name="send_request_action_button_text">Готово</string>
+    <string name="home_history_placeholder">Упс, похоже, вы еще не успели добавить функцию. Добавьте ее в Калькуляторе</string>
+</resources>

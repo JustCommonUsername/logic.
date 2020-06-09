@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_header_height"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:paddingStart="6dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher_intersection_version" />
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nav_header_title"
+            android:layout_toRightOf="@id/image_view"
+            android:layout_centerVertical="true"
+            android:layout_alignBottom="@id/image_view"
+            android:textSize="40sp"
+            android:textColor="@color/secondaryColor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_marginStart="10dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/close_drawer_action"
+            app:backgroundTint="@color/primaryColor"
+            app:fabCustomSize="24dp"
+            app:elevation="0dp"
+            app:pressedTranslationZ="-6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close_navigation_header_12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="Close"/>
+
+    </RelativeLayout>
+
+</layout>

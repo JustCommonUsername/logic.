@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.example.fragmentsdrawer.models.CalculatorViewModel" />
+        <variable
+            name="viewmodel"
+            type="CalculatorViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/calculator_overall_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/calculator_container_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+                <include layout="@layout/home_calculator_editor_elements" />
+
+            </androidx.core.widget.NestedScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculator_container_scroll"
+                android:layout_marginTop="40dp"
+                android:paddingTop="6dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:background="@drawable/calculator_answer_left_border"
+                android:layout_marginBottom="50dp"
+                hideIfZero="@{viewmodel.getCurrentEquation()}">
+
+                <TextView
+                    android:id="@+id/calculator_preview_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/darker_gray"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/calculator_container_scroll"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="50dp"
+                showAlertCase="@{viewmodel.getIsExceptionOccured()}">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_error_outline_blue_24dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:textSize="13sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="@string/alert_situation_message" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/to_solutions"
+                style="@style/TextFloatingButton"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:text="@string/next"
+                hideIfZero="@{viewmodel.getCurrentEquation()}"/>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

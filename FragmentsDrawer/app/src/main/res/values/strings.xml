@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name" translatable="false">logic.</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">logic.</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_about_us">About us</string>
+    <string name="menu_send_request">Request</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+    <string name="home_calculator">Calculator</string>
+    <string name="home_equations">Equations</string>
+    <string name="home_history">History</string>
+    <string name="home_solution">Solutions</string>
+
+    <string name="solution_steps">Solution Steps</string>
+    <string name="more">More</string>
+    <string name="next">Next</string>
+    <string name="solution_title">Solution</string>
+
+    <string name="about_us_app_description">logic. is a mobile boolean algebra calculator. Based on Jetpack Library, it uses LiveData, Data Binding and MVVM pattern to robust your experience. In it\'s core lie boolean algorithms</string>
+    <string name="about_us_contacts_description_full">Project is fully open-source. I will be happy to get any remarks and am ready to provide any information needed.</string>
+    <string name="about_us_contacts_description" translatable="false">Project is fully open-source</string>
+    <string name="about_us_contacts">Contacts:</string>
+
+    <string name="alert_situation_message">Looks like there is a mistake in your equation... We recommend checking it once again</string>
+
+    <string name="home_snackbar_alert">Illegal function. Please, re-enter your input</string>
+
+    <string name="send_request_greeting">Oh no!.. What has happened?</string>
+    <string name="send_request_broad_input_hint">Please, describe the problem</string>
+    <string name="send_request_broad_greeting_explanation">Describe what went wrong and what were you doing at that moment</string>
+    <string name="send_request_choosing_answers_hint">Occurence</string>
+    <string name="send_request_choosing_answers_explanation">Please, choose a place, where did the problem occur</string>
+    <string name="send_request_action_button_text">Send</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_history_placeholder">Oops, looks like you haven\'t added any functions yet. Try adding them via Calculator</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calculator_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/calculator_container_style">
+
+    <TextView
+        android:id="@+id/calculator_field_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="F(...) ="
+        android:textSize="23sp"
+        android:layout_marginEnd="5dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/secondaryColor" />
+
+    <include layout="@layout/calculator_edit_text" />
+
+</LinearLayout>

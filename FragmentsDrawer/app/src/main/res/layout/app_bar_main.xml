@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.lifecycle.LiveData" />
+        <variable
+            name="destination"
+            type="LiveData&lt;Integer>" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/content_main_coordinator"
+            tools:context=".MainActivity">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_collapsing"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:collapsedTitleGravity="center_horizontal"
+                    app:expandedTitleMarginStart="20dp"
+                    app:expandedTitleTextAppearance="@style/TitleExpandedAppearance"
+                    setCurrentTheme="@{destination}"
+                    android:fitsSystemWindows="true">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar_consistent"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        setCurrentTheme="@{destination}" />
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_from_solutions"
+                android:src="@drawable/ic_close_black_16dp"
+                app:fabCustomSize="30dp"
+                app:elevation="9dp"
+                app:pressedTranslationZ="9dp"
+                android:outlineAmbientShadowColor="@color/primaryColor"
+                tools:visibility="visible"
+                style="@style/FloatingActionButton.Solution"
+                showFabSolution="@{destination}" />
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/app_bar_layout"
+                layout="@layout/content_main" />
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

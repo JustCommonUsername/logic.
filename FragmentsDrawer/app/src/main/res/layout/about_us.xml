@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.nav_about_us.AboutUsFragment"
+    android:background="@color/backgroundSolutionColor">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:elevation="5dp"
+        android:src="@drawable/untitled_to_page"/>
+
+    <TextView
+        android:id="@+id/kernel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:layout_marginTop="10dp"
+        android:textSize="50sp"
+        android:textColor="@color/primaryColor"
+        android:text="@string/nav_header_title"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:textSize="12sp"
+        android:layout_below="@id/kernel"
+        android:layout_marginTop="50dp"
+        android:text="@string/about_us_app_description"
+        style="@style/DescriptionTextAppearance" />
+
+    <TextView
+        android:id="@+id/open_source_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="9sp"
+        android:layout_above="@id/contacts_info_description"
+        android:text="@string/about_us_contacts_description"
+        style="@style/DescriptionTextAppearance"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/contacts_info_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/DescriptionTextAppearance"
+        android:layout_above="@id/links"
+        android:textColor="@color/secondaryColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="@string/about_us_contacts"
+        android:layout_marginBottom="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/links"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/github_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Link to GitHub page"
+            android:scaleType="center"
+            android:src="@drawable/ic_github_logo"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:background="@drawable/link_logo" />
+
+        <ImageButton
+            android:id="@+id/vk_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Link to VK page"
+            android:scaleType="center"
+            android:src="@drawable/ic_vk_logo_colourful"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:background="@color/backgroundSolutionColor" />
+
+    </LinearLayout>
+
+</RelativeLayout>

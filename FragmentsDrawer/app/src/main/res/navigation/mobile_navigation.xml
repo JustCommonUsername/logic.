@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.fragmentsdrawer.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_home_solution"
+            app:destination="@id/nav_home_solution"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@+id/nav_home"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_about_us"
+        android:name="com.example.fragmentsdrawer.ui.nav_about_us.AboutUsFragment"
+        android:label="@string/menu_about_us"
+        tools:layout="@layout/about_us">
+        <deepLink
+            android:id="@+id/link_to_VK_profile"
+            app:uri="https://vk.com/yanfarba" />
+        <deepLink
+            android:id="@+id/link_to_GitHub_profile"
+            app:uri="https://github.com/JustCommonUsername" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_request"
+        android:name="com.example.fragmentsdrawer.ui.nav_send_request.RequestFragment"
+        android:label="@string/menu_send_request"
+        tools:layout="@layout/send_request"/>
+
+    <fragment
+        android:id="@+id/nav_home_solution"
+        android:name="com.example.fragmentsdrawer.ui.home.solutions.SolutionFragment"
+        android:label="@string/home_solution"
+        tools:layout="@layout/solutions_main" />
+
+</navigation>

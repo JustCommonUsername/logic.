@@ -1,0 +1,131 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppThemeFirst" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textAppearance">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/comfortaa</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="colorControlNormal">@color/secondaryColor</item>
+        <item name="colorControlActivated">@color/secondaryColor</item>
+    </style>
+
+    <style name="AppThemeMaterial" parent="Theme.MaterialComponents.Light">
+        <item name="colorControlNormal">@color/secondaryColor</item>
+        <item name="colorControlActivated">@color/secondaryColor</item>
+    </style>
+
+    <style name="AppTheme" parent="AppThemeFirst">
+        <item name="colorControlNormal">@color/primaryColor</item>
+        <item name="colorControlActivated">@color/secondaryColor</item>
+        <item name="colorControlHighlight">@color/secondaryColor</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar"/>
+
+    <style name="AppTheme.AppBarOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/backgroundSolutionColor</item>
+        <item name="actionBarItemBackground">@color/backgroundSolutionColor</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:title">@color/secondaryColor</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:background">@color/backgroundSolutionColor</item>
+        <item name="android:textColorPrimary">@color/secondaryTextColor</item>
+    </style>
+    
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">false</item>
+        <item name="color">@color/secondaryColor</item>
+    </style>
+
+    <style name="TitleExpandedAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/secondaryColor</item>
+        <item name="android:fontFamily">@font/comfortaa_bold</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="TitleExpandedAppearance.Solution" parent="TitleExpandedAppearance">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+    <style name="calculator_container_style">
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:paddingTop">40dp</item>
+        <item name="android:paddingBottom">40dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/border_striped</item>
+    </style>
+
+    <style name="FloatingActionButton"/>
+
+    <style name="FloatingActionButton.Solution">
+        <item name="android:alpha">0.8</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_marginEnd">30dp</item>
+        <item name="android:layout_marginTop">60dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="TextFloatingButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_below">@id/solution_item_main</item>
+        <item name="android:background">@drawable/floating_solutions_button_background</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+
+    <style name="CalculatorFieldAppearance" parent="TextAppearance.AppCompat" />
+
+    <style name="CalculatorFieldAppearance.Focus" parent="TextAppearance.AppCompat">
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <style name="CalculatorFieldAppearance.NoFocus" parent="TextAppearance.AppCompat">
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+    </style>
+
+    <style name="DescriptionTextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:maxWidth">180dp</item>
+    </style>
+
+    <style name="HelperTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:fontFamily">@font/comfortaa_light</item>
+        <item name="android:textSize">12sp</item>
+
+    </style>
+
+</resources>

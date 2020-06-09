@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ANTLRGenerationPreferences">
+    <option name="perGrammarGenerationSettings">
+      <list>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/app/src/main/java/com/example/fragmentsdrawer/core/Binary.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\TemporaryProjects\Temporary folder, Tasks to test, Android\Tasks_to_test_on_08-02-2020\FragmentsDrawer\app\src\main\java" />
+          <option name="libDir" value="C:\TemporaryProjects\Temporary folder, Tasks to test, Android\Tasks_to_test_on_08-02-2020\FragmentsDrawer\app\src\main\java\com\example\fragmentsdrawer\core" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="com.example.fragmentsdrawer.core" />
+          <option name="language" value="Java" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

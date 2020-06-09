@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/solution_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    card_view:cardCornerRadius="20dp"
+    card_view:contentPadding="1dp"
+    card_view:cardElevation="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/solution_item_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            android:textSize="9sp"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"
+            android:text="@string/solution_steps" />
+
+        <TextView
+            android:id="@+id/solution_item_name"
+            android:layout_below="@id/solution_item_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/solution_title" />
+
+        <RelativeLayout
+            android:id="@+id/solution_item_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/solution_item_name"
+            android:layout_marginBottom="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/solutions_item_border">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/solution_item_verbose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/primaryTextColor"
+                    android:text="Check"/>
+
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/solution_action_next"
+            android:text="@string/next"
+            style="@style/TextFloatingButton"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

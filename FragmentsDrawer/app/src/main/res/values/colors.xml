@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <color name="primaryColor">#fafafa</color>
+  <color name="primaryLightColor">#ffffff</color>
+  <color name="primaryDarkColor">#c7c7c7</color>
+  <color name="secondaryColor">#303f9f</color>
+  <color name="secondaryLightColor">#666ad1</color>
+  <color name="secondaryLightColorAlpha">#DF303f9f</color>
+  <color name="secondaryDarkColor">#001970</color>
+  <color name="primaryTextColor">#000000</color>
+  <color name="secondaryTextColor">#ffffff</color>
+  <color name="acceleratedSecondaryAlpha">#8fe8eaf6</color>
+  <color name="backgroundSolutionColor">#212121</color>
+  <color name="secondaryEditorColor">#99303f9f</color>
+  <color name="primaryTextColorLighter">#212121</color>
+
+  <color name="primaryOutlineDescription">#b71c1c</color>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="16.6%p"
+    android:keyHeight="50dp"
+    android:horizontalGap="0dp"
+    android:verticalGap="0dp">
+
+    <Row>
+        <Key android:codes="-3" android:keyIcon="@drawable/ic_keyboard_hide_white_24dp" android:keyEdgeFlags="left" />
+        <Key android:codes="-4" android:keyIcon="@drawable/ic_keyboard_return_white_24dp" />
+        <Key android:codes="1" android:isRepeatable="true" android:keyIcon="@drawable/ic_keyboard_arrow_left_white_24dp" />
+        <Key android:codes="2" android:isRepeatable="true" android:keyIcon="@drawable/ic_keyboard_arrow_right_white_24dp" />
+        <Key android:codes="0" />
+        <Key android:codes="-5" android:isRepeatable="true" android:keyIcon="@drawable/ic_backspace_white_24dp" android:keyEdgeFlags="right" />
+    </Row>
+
+    <Row>
+        <Key android:codes="40" android:keyLabel="(" android:keyEdgeFlags="left" />
+        <Key android:codes="41" android:keyLabel=")" />
+        <Key android:codes="65" android:keyLabel="A" />
+        <Key android:codes="66" android:keyLabel="B" />
+        <Key android:codes="67" android:keyLabel="C" />
+        <Key android:codes="8744" android:keyLabel="∨" android:keyEdgeFlags="right" /> <!-- disjunction -->
+    </Row>
+
+    <Row>
+        <Key android:codes="0" android:keyEdgeFlags="left" />
+        <Key android:codes="0" />
+        <Key android:codes="88" android:keyLabel="X" />
+        <Key android:codes="89" android:keyLabel="Y" />
+        <Key android:codes="90" android:keyLabel="Z" />
+        <Key android:codes="8743" android:keyLabel="∧" android:keyEdgeFlags="right" /> <!-- conjunction -->
+    </Row>
+
+    <Row>
+        <Key android:codes="0" android:keyEdgeFlags="left" />
+        <Key android:codes="0" />
+        <Key android:codes="68" android:keyLabel="X1" />
+        <Key android:codes="69" android:keyLabel="X2" />
+        <Key android:codes="8658" android:keyLabel="⇒" /> <!-- implication -->
+        <Key android:codes="172" android:keyLabel="¬" android:keyEdgeFlags="right" /> <!-- inversion -->
+    </Row>
+
+    <Row>
+        <Key android:codes="-20" android:keyLabel="..." android:keyEdgeFlags="left" /> <!-- extra -->
+        <Key android:codes="-30" android:keyLabel="abc" /> <!-- abc -->
+        <Key android:codes="48" android:keyLabel="0" /> <!-- zero -->
+        <Key android:codes="49" android:keyLabel="1" /> <!-- one -->
+        <Key android:codes="8801" android:keyLabel="≡" /> <!-- equalisation -->
+        <Key android:codes="8853" android:keyLabel="⊕" android:keyEdgeFlags="right" /> <!-- modulo by two -->
+    </Row>
+
+</Keyboard>
