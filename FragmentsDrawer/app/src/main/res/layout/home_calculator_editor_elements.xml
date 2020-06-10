@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/calculator_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,6 +17,12 @@
         android:gravity="center_vertical"
         android:textColor="@color/secondaryColor" />
 
-    <include layout="@layout/calculator_edit_text" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/calculator_fields_scroller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>

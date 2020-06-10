@@ -38,8 +38,12 @@ public class CalculatorViewModel extends AndroidViewModel {
         return isExceptionOccured;
     }
 
-    public Equation getSolvedEquation(String equation) {
-        return repository.getSolvedEquation(equation);
+    public void setSolvedEquation(Equation equation) {
+        this.solvedEquation = equation;
+    }
+
+    public Equation getSolvedEquation() {
+        return solvedEquation;
     }
 
     public void insert(Equation equation) {

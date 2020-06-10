@@ -8,9 +8,9 @@
 
     <Row>
         <Key android:codes="-3" android:keyIcon="@drawable/ic_keyboard_hide_white_24dp" android:keyEdgeFlags="left" />
-        <Key android:codes="-4" android:keyIcon="@drawable/ic_keyboard_return_white_24dp" />
         <Key android:codes="1" android:isRepeatable="true" android:keyIcon="@drawable/ic_keyboard_arrow_left_white_24dp" />
         <Key android:codes="2" android:isRepeatable="true" android:keyIcon="@drawable/ic_keyboard_arrow_right_white_24dp" />
+        <Key android:codes="0" />
         <Key android:codes="0" />
         <Key android:codes="-5" android:isRepeatable="true" android:keyIcon="@drawable/ic_backspace_white_24dp" android:keyEdgeFlags="right" />
     </Row>
@@ -48,7 +48,7 @@
         <Key android:codes="48" android:keyLabel="0" /> <!-- zero -->
         <Key android:codes="49" android:keyLabel="1" /> <!-- one -->
         <Key android:codes="8801" android:keyLabel="≡" /> <!-- equalisation -->
-        <Key android:codes="8853" android:keyLabel="⊕" android:keyEdgeFlags="right" /> <!-- modulo by two -->
+        <Key android:codes="-4" android:keyIcon="@drawable/ic_keyboard_return_white_24dp" />
     </Row>
 
 </Keyboard>

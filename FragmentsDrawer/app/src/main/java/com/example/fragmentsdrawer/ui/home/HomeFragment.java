@@ -21,8 +21,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class HomeFragment extends Fragment {
-    private ViewPager2 pager;
-    private CollectionPagerAdapter adapter;
     private CollapsingToolbarLayout toolbar;
 
     @Override
@@ -33,8 +31,9 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        adapter = new CollectionPagerAdapter(this);
-        pager = (ViewPager2)view.findViewById(R.id.pages);
+        CollectionPagerAdapter adapter = new CollectionPagerAdapter(this);
+        ViewPager2 pager = (ViewPager2)view.findViewById(R.id.pages);
+
         pager.setAdapter(adapter);
         toolbar = getActivity().findViewById(R.id.toolbar_collapsing);
 
@@ -51,7 +50,7 @@ public class HomeFragment extends Fragment {
                                 tab.setIcon(R.drawable.ic_history_primary_light_24dp);
                                 break;
                             default:
-                                Toast.makeText(getContext(), "Unavailable tab", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity().getApplicationContext(), "Unavailable tab", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).attach();
@@ -65,7 +64,7 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onPageSelected(int position) {
-                    MainActivity.hideKeyboardFrom(getContext(), HomeFragment.this);
+                    MainActivity.hideKeyboardFrom(getActivity().getApplicationContext(), HomeFragment.this);
                     switch (position) {
                         case 0:
                             toolbar.setTitle(getString(R.string.home_calculator));

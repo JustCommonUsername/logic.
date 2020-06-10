@@ -42,10 +42,6 @@ public class EquationRepository {
         return mAllEquations;
     }
 
-    public Equation getSolvedEquation(String equation) {
-        return mEquationDao.getSolvedEquation(equation).getValue().get(0);
-    }
-
     public void insert(Equation equation) {
         new InsertEquationTask(mEquationDao).execute(equation);
     }

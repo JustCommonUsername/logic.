@@ -25,8 +25,6 @@ public class SolutionFragment extends Fragment {
     private CardView function, CDNF, CCNF;
     private CalculatorViewModel viewModel;
 
-    volatile boolean got = false;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle onSavedInstanceState) {
@@ -49,46 +47,19 @@ public class SolutionFragment extends Fragment {
             e.printStackTrace();
         }
 
-        new SetCurrentEquationTask().execute();
-    }
+        TextView answer = function.findViewById(R.id.solution_item_verbose);
+        TextView ccnf = CCNF.findViewById(R.id.solution_item_verbose);
+        TextView cdnf = CDNF.findViewById(R.id.solution_item_verbose);
 
-    private class SetCurrentEquationTask extends AsyncTask<Void, Void, Equation> {
-
-        @Override
-        public Equation doInBackground(Void... params) {
-            Equation equation = null;
-
-            List<Equation> equations = viewModel.getAllEquations().getValue();
-
-            try {
-                for (int i = 0; i < equations.size(); i++) {
-                    if (equations.get(i).equals(viewModel.getCurrentEquation()))
-                        equation = equations.get(i);
-                }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-
-            return equation;
+        try {
+            answer.setText(viewModel.getSolvedEquation().getReducedFunction());
+            ccnf.setText(viewModel.getSolvedEquation().getCNF());
+            cdnf.setText(viewModel.getSolvedEquation().getDNF());
+        } catch (NullPointerException e) {
+            answer.setText("Re-enter input");
+            ccnf.setText("Re-enter input");
+            cdnf.setText("Re-enter input");
         }
-
-        @Override
-        public void onPostExecute(Equation result) {
-            TextView answer = function.findViewById(R.id.solution_item_verbose);
-            TextView ccnf = CCNF.findViewById(R.id.solution_item_verbose);
-            TextView cdnf = CDNF.findViewById(R.id.solution_item_verbose);
-
-            try {
-                answer.setText(result.getReducedFunction());
-                ccnf.setText(result.getCNF());
-                cdnf.setText(result.getDNF());
-            } catch (NullPointerException e) {
-                answer.setText("Re-enter input");
-                ccnf.setText("Re-enter input");
-                cdnf.setText("Re-enter input");
-            }
-        }
-
     }
 
 }

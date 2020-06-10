@@ -46,7 +46,7 @@ public class RequestFragment extends Fragment {
         };
 
         AutoCompleteTextView autocomplete = (AutoCompleteTextView)choosing.getEditText();
-        autocomplete.setAdapter(new ArrayAdapter<>(getContext(), R.layout.request_field_choosing, places));
+        autocomplete.setAdapter(new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.request_field_choosing, places));
 
         action.setOnClickListener(new View.OnClickListener() {
             @Override

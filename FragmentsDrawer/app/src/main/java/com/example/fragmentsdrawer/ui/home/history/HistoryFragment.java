@@ -27,7 +27,6 @@ import java.util.List;
 public class HistoryFragment extends Fragment {
 
     private List<Equation> mWorldList;
-    private RecyclerView mRecyclerView;
     private HistoryViewAdapter recyclerAdapter;
     private CalculatorViewModel calculatorViewModel;
 
@@ -50,9 +49,9 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         // Getting a reference to the recycler view in history fragment layout
-        mRecyclerView = view.findViewById(R.id.elements_recycler);
+        RecyclerView mRecyclerView = view.findViewById(R.id.elements_recycler);
         // Creating an adapter and passing data to it
-        recyclerAdapter = new HistoryViewAdapter(getContext(), mWorldList, Navigation.findNavController(getActivity(), R.id.nav_host_fragment), calculatorViewModel);
+        recyclerAdapter = new HistoryViewAdapter(getActivity().getApplicationContext(), mWorldList, Navigation.findNavController(getActivity(), R.id.nav_host_fragment), calculatorViewModel);
         // Supplying recycler view with adapter
         mRecyclerView.setAdapter(recyclerAdapter);
         // Giving recycler view vertical type of orientation

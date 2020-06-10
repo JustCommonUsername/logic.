@@ -31,9 +31,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fragmentsdrawer.MainActivity;
 import com.example.fragmentsdrawer.R;
+import com.example.fragmentsdrawer.adapters.CalculatorEditorViewAdapter;
 import com.example.fragmentsdrawer.core.EquationFactory;
 import com.example.fragmentsdrawer.core.IllegalLogicEquationException;
 import com.example.fragmentsdrawer.databinding.HomeCalculatorBinding;
@@ -44,28 +46,25 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
 import kotlin.TypeCastException;
 
-public class CalculatorFragment extends Fragment implements View.OnFocusChangeListener {
+public class CalculatorFragment extends Fragment {
 
-    private LinearLayout container;
+    private RecyclerView container;
     private CalculatorViewModel viewModel;
     private TextView answerPreview;
     private FragmentActivity activity;
     private Button action;
     private NavController controller;
-    private NestedScrollView overallScroll;
+    private CalculatorEditorViewAdapter adapter;
 
     private Drawable editTextMainBackground;
 
-    private MutableLiveData<LinkedList<Pair<EditText, EditText>>> bracketsData = new MutableLiveData<>();
-    private LinkedList<Pair<EditText, EditText>> brackets = new LinkedList<>();
-
-    private float DENSITY;
     public static final int ADD_FORM = 0;
     public static final int EXTRA_INFO = -20;
     public static final int EXTRA_LETTERS = -30;
@@ -94,22 +93,24 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
 
     @Override
     public void onViewCreated(final @NonNull View view, Bundle savedInstanceState) {
-        container = view.findViewById(R.id.calculator_container);
+        // Getting reference to calculator fields recycler
+        container = view.findViewById(R.id.calculator_fields_scroller);
+
         answerPreview = view.findViewById(R.id.calculator_preview_answer);
         action = view.findViewById(R.id.to_solutions);
         controller = NavHostFragment.findNavController(this);
-        overallScroll = view.findViewById(R.id.calculator_overall_scroll);
+
+        adapter = new CalculatorEditorViewAdapter(getContext(), new ArrayList<Character>(), viewModel, getActivity());
+
+        container.setAdapter(adapter);
 
         viewModel.getIsExceptionOccured().setValue(false);
-
-        DENSITY = getContext().getResources().getDisplayMetrics().scaledDensity;
 
         editTextMainBackground = getLayoutInflater()
                 .inflate(R.layout.calculator_edit_text, null, false)
                 .getBackground();
 
-        receiver = new CalculatorBroadcastReceiver(view);
-        bracketsData.setValue(brackets);
+        receiver = new CalculatorBroadcastReceiver();
 
         container.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -128,13 +129,13 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
                 Equation equation;
 
                 try {
-                    equation = new EquationFactory().construct(s);
+                    equation = EquationFactory.construct(s);
                 } catch (IllegalLogicEquationException e) {
                     viewModel.getIsExceptionOccured().postValue(true);
                     return;
                 }
 
-                if (s == null)
+                if (s == null || s.equals("null"))
                     viewModel.getCurrentEquation().setValue(null);
                 else
                     answerPreview.setText("= " + s);
@@ -150,26 +151,7 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
                 try {
                     controller.navigate(R.id.nav_home_solution);
                 } catch (NullPointerException e) {
-                    Toast.makeText(getContext(), "No NavController found", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        bracketsData.observe(this, new Observer<LinkedList<Pair<EditText, EditText>>>() {
-            @Override
-            public void onChanged(LinkedList<Pair<EditText, EditText>> pairs) {
-                // TODO: Exclude debugging after check
-                for (int i = pairs.size() - 1; i >= 0; i--) {
-                    try {
-                        EditText first = pairs.get(i).first, second = pairs.get(i).second;
-
-                        first.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 23 + i);
-                        second.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 23 + i);
-                    } catch (ClassCastException e) {
-                        Toast.makeText(getContext(), "Found View by ID is not EditText", Toast.LENGTH_SHORT).show();
-                    } catch (NullPointerException e) {
-                        Toast.makeText(getContext(), "No View by given ID found", Toast.LENGTH_SHORT).show();
-                    }
+                    e.printStackTrace();
                 }
             }
         });
@@ -189,14 +171,8 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
         // Forcing LiveData to observe its value
         viewModel.getCurrentEquation().postValue(viewModel.getCurrentEquation().getValue());
 
-        // Adding EditTexts, that were deleted
-        if (viewModel.getCurrentEquation().getValue() != null && container.getChildCount() == 2
-                && ((EditText)container.getChildAt(1)).getText().toString().length() == 0) {
-            for (char ch: viewModel.getCurrentEquation().getValue().toCharArray()) {
-                container.addView(getLayoutInflater().inflate(R.layout.calculator_edit_text, container, false));
-                ((EditText)container.getChildAt(container.getChildCount() - 1)).setText(Character.toString(ch));
-            }
-        }
+        // Returning the once given input to the editor
+        adapter.onResume(viewModel.getCurrentEquation().getValue());
     }
 
     @Override
@@ -205,12 +181,8 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
         // Handling the keyboard close when the fragment is not seen
         MainActivity.hideKeyboardFrom(activity.getApplicationContext(), this);
 
-        // Saving current data
-        String toSafe = "";
-        for (int i = 1; i < container.getChildCount(); i++) {
-            toSafe += ((TextView)container.getChildAt(i)).getText().toString();
-        }
-        viewModel.getCurrentEquation().setValue(toSafe);
+        // Saving data in calculator to ViewModel
+        viewModel.getCurrentEquation().setValue(adapter.fields());
 
         // Unregistering receiver from a fragment to avoid memory leaks
         try {
@@ -218,22 +190,6 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Clearing data about brackets in order to prevent from memory leak
-        bracketsData.getValue().clear();
-    }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus)
-            v.setBackground(editTextMainBackground);
-        else
-            v.setBackgroundResource(android.R.color.transparent);
-    }
-
-    private <T extends EditText> void addValueToList(T a, T b) {
-        brackets.push(new Pair<EditText, EditText>(a, b));
-        bracketsData.postValue(brackets);
     }
 
     /**<summary>
@@ -255,27 +211,18 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
      * </summary>**/
     private class CalculatorBroadcastReceiver extends BroadcastReceiver {
 
-        private View parentFragment;
-
-        CalculatorBroadcastReceiver(View view) {
-            this.parentFragment = view;
-        }
-
         @Override
         public void onReceive(Context context, Intent intent) {
             if (container != null) {
-                final EditText focusedChild;
-                final String focusedText;
+
+                final int value = intent.getIntExtra(KeyboardInputService.INFO, 0);
+                int index;
 
                 try {
-                    focusedChild = (EditText)container.getFocusedChild();
-                    focusedText = focusedChild.getText().toString();
+                    index = container.indexOfChild(container.getFocusedChild());
                 } catch (NullPointerException e) {
                     return;
                 }
-
-                final int focusedChildIndex = container.indexOfChild(focusedChild);
-                final int value = intent.getIntExtra(KeyboardInputService.INFO, 0);
 
                 // Changing mode of a observable data so, that there is no pending problem
                 viewModel.getIsExceptionOccured().setValue(false);
@@ -287,69 +234,24 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
                         break;
                     case Keyboard.KEYCODE_DELETE:
                         // TODO: Check situation work below
-                        viewModel.getCurrentEquation().setValue(null);
-
-                        boolean isBracket = focusedText.equals("(") || focusedText.equals(")");
-
-                        if (isBracket) {
-                            for (int i = 0; i < bracketsData.getValue().size(); i++) {
-                                EditText first = bracketsData.getValue().get(i).first;
-                                EditText second = bracketsData.getValue().get(i).second;
-
-                                if (first == focusedChild || second == focusedChild) {
-                                    container.removeView(first);
-                                    container.removeView(second);
-
-                                    brackets.remove(i);
-                                    bracketsData.postValue(brackets);
-
-                                    if (container.getChildAt(focusedChildIndex - 1) == null)
-                                        container.getChildAt(container.getChildCount() - 1).requestFocus();
-                                    else
-                                        container.getChildAt(focusedChildIndex - 1).requestFocus();
-
-                                    break;
-                                }
-                            }
-                        } else
-                            container.removeView(focusedChild);
-
-                        if (container.getChildCount() == 1) {
-                            container.addView(getLayoutInflater().inflate(R.layout.calculator_edit_text, container, false));
-                            container.getChildAt(1).requestFocus();
+                        try {
+                            adapter.delete((char) value, index);
+                        } catch (IllegalLogicEquationException e) {
+                            viewModel.getIsExceptionOccured().setValue(true);
                         }
-                        else
-                            container.getChildAt(focusedText.equals(")") ? focusedChildIndex - 2 : focusedChildIndex - 1).requestFocus();
-
                         break;
                     case Keyboard.KEYCODE_CANCEL:
                         try {
-                            MainActivity.hideKeyboardFrom(getContext(), CalculatorFragment.this);
+                            MainActivity.hideKeyboardFrom(getActivity().getApplicationContext(), CalculatorFragment.this);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         break;
                     case Keyboard.EDGE_LEFT:
-                        try {
-                            if (focusedChildIndex > 1) {
-                                if (TextUtils.isEmpty(focusedText))
-                                    container.removeView(focusedChild);
-                                container.getChildAt(focusedChildIndex - 1).requestFocus();
-                            }
-                        } catch (NullPointerException e) {
-                            refreshLayout();
-                        }
+                        adapter.changePosition(index - 1);
                         break;
                     case Keyboard.EDGE_RIGHT:
-                        try {
-                            if (focusedChildIndex + 1 < container.getChildCount()) {
-                                if (TextUtils.isEmpty(focusedText))
-                                    container.removeView(focusedChild);
-                                container.getChildAt(focusedChildIndex + 1).requestFocus();
-                            }
-                        } catch (NullPointerException e) {
-                            refreshLayout();
-                        }
+                        adapter.changePosition(index + 1);
                         break;
                     case Keyboard.KEYCODE_DONE:
                         StringBuffer equation = new StringBuffer();
@@ -361,51 +263,21 @@ public class CalculatorFragment extends Fragment implements View.OnFocusChangeLi
                                 equation.append(current.getText().toString());
                             }
                         } catch (ClassCastException e) {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         } finally {
                             viewModel.getCurrentEquation().setValue(equation.toString());
                         }
 
                         break;
                     case HIDE_KEYBOARD:
-                        if (getContext() != null)
-                            MainActivity.hideKeyboardFrom(getContext(), CalculatorFragment.this);
+                        if (getActivity().getApplicationContext() != null)
+                            MainActivity.hideKeyboardFrom(getActivity().getApplicationContext(), CalculatorFragment.this);
                         break;
                     default:
-                        viewModel.getCurrentEquation().setValue(null);
-
-                        container.addView(activity.getLayoutInflater().inflate(
-                                R.layout.calculator_edit_text, container, false),
-                                focusedChildIndex + 1
-                        );
-
-                        final EditText form = (EditText)container.getChildAt(focusedChildIndex + 1);
-                        form.setText(Character.toString((char)value));
-                        form.setOnFocusChangeListener(CalculatorFragment.this);
-                        form.requestFocus();
-
-                        if (Character.toString((char)value).equals("(")) {
-                            container.addView(activity.getLayoutInflater().inflate(
-                                    R.layout.calculator_edit_text, container, false),
-                                    focusedChildIndex + 2);
-                            EditText secondBracket = (EditText)container.getChildAt(focusedChildIndex + 2);
-                            secondBracket.setOnFocusChangeListener(CalculatorFragment.this);
-                            secondBracket.setText(")");
-
-                            addValueToList(form, secondBracket);
-                        }
+                        adapter.add((char)value, index);
                 }
-            }
-        }
 
-        private void refreshLayout() {
-            int steps = container.getChildCount();
-            for (int i = steps; i > 2; i--) {
-                container.removeView(container.getChildAt(i - 1));
             }
-            Snackbar.make(overallScroll, R.string.home_snackbar_alert, Snackbar.LENGTH_SHORT)
-                    .setTextColor(getResources().getColor(R.color.primaryColor))
-                    .show();
         }
 
     }

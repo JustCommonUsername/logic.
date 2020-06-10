@@ -21,6 +21,6 @@ public interface EquationDao {
     LiveData<List<Equation>> getAllEquations();
 
     @Query("SELECT * FROM calculator_history WHERE function = :function")
-    LiveData<List<Equation>> getSolvedEquation(String function);
+    LiveData<List<Equation>> getGivenEquation(String function);
 
 }

@@ -62,11 +62,9 @@ public class MainActivity extends AppCompatActivity implements
         NavController.OnDestinationChangedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private NavigationView navigationView;
     private NavController navController;
     private Toolbar toolbar;
     private FloatingActionButton fab;
-    private AppBarLayout appBarLayout;
 
     private MutableLiveData<Integer> currentDestination = new MutableLiveData<>();
 
@@ -93,12 +91,11 @@ public class MainActivity extends AppCompatActivity implements
         layout = binding.appBarMain.toolbarCollapsing;
         content_main = binding.appBarMain.contentMainCoordinator;
         fab = binding.appBarMain.actionFromSolutions;
-        appBarLayout = binding.appBarMain.appBarLayout;
 
         FloatingActionButton close_drawer = binding.navView.getHeaderView(0).findViewById(R.id.close_drawer_action);
 
         drawer = binding.drawerLayout;
-        navigationView = binding.navView;
+        NavigationView navigationView = binding.navView;
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         // Passing each menu ID as a set of Ids because each

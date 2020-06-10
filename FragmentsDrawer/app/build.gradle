@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        javaMaxHeapSize "1536m"
+    }
     dataBinding {
         enabled true
     }
@@ -75,4 +78,6 @@ dependencies {
     implementation "androidx.emoji:emoji-appcompat:1.0.0"
 
     implementation "org.logicng:logicng:1.6.2"
+
+    implementation "com.google.android.gms:play-services-base:17.3.0"
 }

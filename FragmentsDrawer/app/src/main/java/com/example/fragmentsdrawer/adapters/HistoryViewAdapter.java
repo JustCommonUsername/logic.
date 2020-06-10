@@ -86,10 +86,8 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
                     int position = getLayoutPosition();
                     // Getting current value from data set
                     Equation mCurrentEquation = mEquationList.get(position);
-                    // ViewModel changes its current equation in order to perform query
-                    viewModel.getCurrentEquation().setValue(mCurrentEquation.getFunction());
-                    // DEBUG
-                    Toast.makeText(itemView.getContext(), mCurrentEquation.getFunction(), Toast.LENGTH_SHORT).show();
+                    // ViewModel changes one of its values to perform showing the results
+                    viewModel.setSolvedEquation(mCurrentEquation);
                     // Navigating to solutions fragment
                     controller.navigate(R.id.nav_home_solution);
                 }

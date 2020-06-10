@@ -1,43 +1,23 @@
 package com.example.fragmentsdrawer.core;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.example.fragmentsdrawer.rooms.Equation;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Parser;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
-import org.logicng.formulas.FormulaTransformation;
-import org.logicng.formulas.Variable;
 import org.logicng.io.parsers.ParserException;
 import org.logicng.io.parsers.PropositionalParser;
 import org.logicng.transformations.qmc.QuineMcCluskeyAlgorithm;
 
-import java.util.Collection;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 public class EquationFactory {
 
-    private LinkedList<String> changes = new LinkedList<>();
-    private ReversePolishNotation source;
-
-    public Equation construct(String input) throws IllegalLogicEquationException {
+    public static Equation construct(String input) throws IllegalLogicEquationException {
         // TODO: Implement construction
         if (input != null) {
-            source = ReversePolishNotation.getRPNObject(input);
+            ReversePolishNotation source = ReversePolishNotation.getRPNObject(input);
 
             // Implementing equation simplification
             final FormulaFactory factory = new FormulaFactory();
@@ -59,7 +39,9 @@ public class EquationFactory {
         return null;
     }
 
-    // TODO: Needed for testing parsing method, implement
+    /* TODO: Needed for testing parsing method, implement
+
+
     public static void printTreeNodes(String input) {
         ANTLRInputStream stream = new ANTLRInputStream(input);
         BinaryLexer lexer = new BinaryLexer(stream);
@@ -67,58 +49,55 @@ public class EquationFactory {
         BinaryParser parser = new BinaryParser(tokens);
         parser.setBuildParseTree(true);
     }
+    */
 
-    private String prepareFunctionTo(String input) {
-        StringBuilder builder = new StringBuilder();
+    private static String prepareFunctionTo(String input) {
+       String result = "";
 
         for (char ch: input.toCharArray()) {
             switch (ch) {
                 case '¬':
-                    builder.append('~');
+                    result += "~";
                     break;
                 case '∧':
-                    builder.append('&');
+                    result += "&";
                     break;
                 case '∨':
-                    builder.append('|');
+                    result += "|";
                     break;
                 case '⇒':
-                    builder.append("=>");
+                    result += "=>";
                     break;
                 case '≡':
-                    builder.append("<=>");
+                    result += "<=>";
                     break;
                 default:
-                    builder.append(ch);
+                    result += Character.toString(ch);
             }
         }
 
-        return builder.toString();
+        return result;
     }
 
-    private String prepareFunctionFrom(String input) {
-        StringBuilder builder = new StringBuilder();
+    private static String prepareFunctionFrom(String input) {
+        String result = "";
 
         for (char ch: input.toCharArray()) {
             switch (ch) {
                 case '!':
-                    builder.append('¬');
+                    result += "¬";
                     break;
                 case '&':
-                    builder.append('∧');
+                    result += "∧";
                     break;
                 case '|':
-                    builder.append('∨');
+                    result += "∨";
                 default:
-                    builder.append(ch);
+                    result += Character.toString(ch);
             }
         }
 
-        return builder.toString();
-    }
-
-    public ReversePolishNotation getCurrentReversePolishNotation() {
-        return source;
+        return result;
     }
 
 }
@@ -135,6 +114,8 @@ class ReversePolishNotation {
     private LinkedList<Character> stack = new LinkedList<>();
     private Hashtable<Character, Integer> priorities = new Hashtable<>();
 
+    private static ReversePolishNotation INSTANCE;
+
     /* Initializing priority hashtable */
     {
         String[][] distribution = {
@@ -150,8 +131,12 @@ class ReversePolishNotation {
         }
     }
 
+    /** Implementing Singleton pattern **/
     public static ReversePolishNotation getRPNObject(String input) throws IllegalLogicEquationException {
-        return new ReversePolishNotation()
+        if (INSTANCE == null)
+            INSTANCE = new ReversePolishNotation();
+
+        return INSTANCE
                 .getRPN(input)
                 .prepareLogicTable(0)
                 .calculate()

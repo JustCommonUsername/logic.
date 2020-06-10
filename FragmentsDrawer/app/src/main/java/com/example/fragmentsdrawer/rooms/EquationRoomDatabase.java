@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Equation.class}, version = 8, exportSchema = false)
+@Database(entities = {Equation.class}, version = 9, exportSchema = false)
 public abstract class EquationRoomDatabase extends RoomDatabase {
 
     public abstract EquationDao equationDao();
