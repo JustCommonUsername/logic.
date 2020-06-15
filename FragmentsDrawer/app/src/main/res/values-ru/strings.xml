@@ -33,4 +33,6 @@
     <string name="send_request_choosing_answers_explanation">Пожалуйста, выберете место, в котором была замечена ошибка</string>
     <string name="send_request_action_button_text">Готово</string>
     <string name="home_history_placeholder">Упс, похоже, вы еще не успели добавить функцию. Добавьте ее в Калькуляторе</string>
+    <string name="send_request_email_form_explanation">Введите свой e-mail</string>
+    <string name="send_request_email_form_hint">Введите свой актуальный адрес электронной почты, чтобы мы могли связаться с Вами для уточнения проблемы</string>
 </resources>

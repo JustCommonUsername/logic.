@@ -12,6 +12,7 @@ import android.view.inputmethod.InputConnection;
 import android.widget.LinearLayout;
 
 import com.example.fragmentsdrawer.R;
+import com.example.fragmentsdrawer.adapters.CalculatorEditorViewAdapter;
 import com.example.fragmentsdrawer.ui.home.calculator.CalculatorFragment;
 
 public class KeyboardInputService extends InputMethodService implements KeyboardView.OnKeyboardActionListener {
@@ -63,18 +64,14 @@ public class KeyboardInputService extends InputMethodService implements Keyboard
                 fields--;
             // If statement checks, whether there is text to add
             } else if (primaryCode > 2) {
-                /* Check, whether EditText, which is added, is empty
-                if (TextUtils.isEmpty(before) && TextUtils.isEmpty(after) && fields > 1)  {
+                // Check, whether EditText, which is added, is empty
+                if (TextUtils.isEmpty(before) && TextUtils.isEmpty(after))  {
                     connection.commitText(String.valueOf((char) primaryCode), 1);
                 } else {
                     // Broadcast to add EditText and add text in there
                     sendBroadcast(i.putExtra(INFO, primaryCode));
                     fields++;
-                } */
-
-                // Broadcast to add EditText and add text in there ONLY
-                sendBroadcast(i.putExtra(INFO, primaryCode));
-                fields++;
+                }
             } else
                 // Broadcast to perform specific action
                 sendBroadcast(i.putExtra(INFO, primaryCode));

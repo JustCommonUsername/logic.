@@ -18,6 +18,11 @@ public class CalculatorViewModel extends AndroidViewModel {
     private MutableLiveData<String> mCurrentEquation = new MutableLiveData<>();
     private MutableLiveData<Boolean> isExceptionOccured = new MutableLiveData<>();
 
+    {
+        mCurrentEquation.setValue(null);
+        isExceptionOccured.setValue(false);
+    }
+
     private Equation solvedEquation;
 
     public CalculatorViewModel(Application application) {

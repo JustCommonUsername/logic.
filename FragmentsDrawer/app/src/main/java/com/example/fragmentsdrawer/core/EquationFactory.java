@@ -51,53 +51,22 @@ public class EquationFactory {
     }
     */
 
-    private static String prepareFunctionTo(String input) {
-       String result = "";
-
-        for (char ch: input.toCharArray()) {
-            switch (ch) {
-                case '¬':
-                    result += "~";
-                    break;
-                case '∧':
-                    result += "&";
-                    break;
-                case '∨':
-                    result += "|";
-                    break;
-                case '⇒':
-                    result += "=>";
-                    break;
-                case '≡':
-                    result += "<=>";
-                    break;
-                default:
-                    result += Character.toString(ch);
-            }
-        }
-
-        return result;
+    private static String prepareFunctionTo(String inputString) {
+        return inputString
+                .replaceAll("¬", "~")
+                .replaceAll("∧", "&")
+                .replaceAll("∨", "|")
+                .replaceAll("⇒", "=>")
+                .replaceAll("≡", "<=>");
     }
 
-    private static String prepareFunctionFrom(String input) {
-        String result = "";
-
-        for (char ch: input.toCharArray()) {
-            switch (ch) {
-                case '!':
-                    result += "¬";
-                    break;
-                case '&':
-                    result += "∧";
-                    break;
-                case '|':
-                    result += "∨";
-                default:
-                    result += Character.toString(ch);
-            }
-        }
-
-        return result;
+    private static String prepareFunctionFrom(String inputString) {
+        return inputString
+                .replaceAll("!", "¬")
+                .replaceAll("&", "∧")
+                .replaceAll("[|]", "∨")
+                .replaceAll("<=>,", "≡")
+                .replaceAll("=>", "⇒");
     }
 
 }
@@ -114,8 +83,6 @@ class ReversePolishNotation {
     private LinkedList<Character> stack = new LinkedList<>();
     private Hashtable<Character, Integer> priorities = new Hashtable<>();
 
-    private static ReversePolishNotation INSTANCE;
-
     /* Initializing priority hashtable */
     {
         String[][] distribution = {
@@ -131,12 +98,8 @@ class ReversePolishNotation {
         }
     }
 
-    /** Implementing Singleton pattern **/
     public static ReversePolishNotation getRPNObject(String input) throws IllegalLogicEquationException {
-        if (INSTANCE == null)
-            INSTANCE = new ReversePolishNotation();
-
-        return INSTANCE
+        return new ReversePolishNotation()
                 .getRPN(input)
                 .prepareLogicTable(0)
                 .calculate()
@@ -290,8 +253,8 @@ class ReversePolishNotation {
                 return this;
             }
         } else {
-            this.CDNF = RPN;
-            this.CCNF = RPN;
+            CDNF = RPN;
+            CCNF = RPN;
         }
         return this;
     }

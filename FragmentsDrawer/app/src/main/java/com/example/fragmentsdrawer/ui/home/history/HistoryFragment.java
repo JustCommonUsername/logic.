@@ -1,7 +1,6 @@
 package com.example.fragmentsdrawer.ui.home.history;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.example.fragmentsdrawer.databinding.HomeHistoryBinding;
 import com.example.fragmentsdrawer.models.CalculatorViewModel;
 import com.example.fragmentsdrawer.rooms.Equation;
 
+import java.util.Collections;
 import java.util.List;
 
 public class HistoryFragment extends Fragment {
@@ -60,6 +60,9 @@ public class HistoryFragment extends Fragment {
         calculatorViewModel.getAllEquations().observe(this, new Observer<List<Equation>>() {
             @Override
             public void onChanged(List<Equation> equations) {
+                // Reversing database data in order to provide most recent information
+                Collections.reverse(equations);
+                // Setting data to the adapter
                 recyclerAdapter.setEquations(equations);
             }
         });

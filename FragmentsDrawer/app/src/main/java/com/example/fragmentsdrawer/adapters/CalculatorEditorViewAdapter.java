@@ -1,10 +1,12 @@
 package com.example.fragmentsdrawer.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
@@ -33,6 +35,9 @@ public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<Calculator
         this.mValuesList = mValuesList;
         this.viewModel = viewModel;
         this.owner = lifecycleOwner;
+
+        if (mValuesList.size() == 0)
+            mValuesList.add('\0');
     }
 
     @NonNull
@@ -72,26 +77,31 @@ public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<Calculator
     }
 
     public void delete(char value, int index) throws IllegalLogicEquationException {
-        mValuesList.remove(index);
+        if (index > 0 && index < mValuesList.size()) {
+            mValuesList.remove(index);
+            int toFocus = index - 1;
 
-        if (value == ')') {
-            for (int i = index; i >= 0; i--) {
-                if (mValuesList.get(i) == '(')
-                    mValuesList.remove(i);
-                else if (i == 0)
-                    throw new IllegalLogicEquationException();
+            if (value == ')') {
+                for (; index >= 0; index--) {
+                    if (mValuesList.get(index) == '(') {
+                        mValuesList.remove(index);
+                        toFocus--;
+                    }
+                    else if (index == 0)
+                        throw new IllegalLogicEquationException();
+                }
+            } else if (value == '(') {
+                for (int i = index; i < mValuesList.size(); i++) {
+                    if (mValuesList.get(i) == ')')
+                        mValuesList.remove(i);
+                    else if (i + 1 == mValuesList.size())
+                        throw new IllegalLogicEquationException();
+                }
             }
-        }
-        else if (value == '(') {
-            for (int i = index; i < mValuesList.size(); i++) {
-                if (mValuesList.get(i) == ')')
-                    mValuesList.remove(i);
-                else if (i + 1 == mValuesList.size())
-                    throw new IllegalLogicEquationException();
-            }
-        }
 
-        notifyDataSetChanged();
+            pendingFocusIndex.setValue(toFocus);
+            notifyDataSetChanged();
+        }
     }
 
     public String fields() {
@@ -108,7 +118,7 @@ public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<Calculator
                 for (char ch : input.toCharArray())
                     mValuesList.add(ch);
             else
-                mValuesList.add(' ');
+                mValuesList.add('\0');
         }
 
         notifyDataSetChanged();
@@ -117,6 +127,10 @@ public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<Calculator
     public void changePosition(int index) {
         if (index >= 0 && index < mValuesList.size())
             pendingFocusIndex.setValue(index);
+    }
+
+    public List<Character> getValuesList() {
+        return mValuesList;
     }
 
     class EditorViewHolder extends RecyclerView.ViewHolder {
@@ -128,16 +142,6 @@ public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<Calculator
             super(view);
             this.adapter = adapter;
             this.field = view.findViewById(R.id.calculator_field);
-
-            field.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus)
-                        field.setBackgroundDrawable(inflater.inflate(R.layout.calculator_edit_text, null, false).getBackground());
-                    else
-                        field.setBackgroundResource(android.R.color.transparent);
-                }
-            });
 
             adapter.pendingFocusIndex.observe(owner, new Observer<Integer>() {
                 @Override

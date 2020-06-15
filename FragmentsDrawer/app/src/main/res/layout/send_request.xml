@@ -8,7 +8,6 @@
     tools:context=".ui.nav_send_request.RequestFragment"
     android:paddingStart="60dp"
     android:paddingEnd="60dp"
-    android:paddingTop="20dp"
     android:theme="@style/AppThemeMaterial">
 
     <ScrollView
@@ -36,6 +35,25 @@
                 android:textColor="@color/secondaryColor"
                 android:textSize="23sp"
                 android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="@string/send_request_email_form_explanation"
+                android:theme="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                app:boxCornerRadiusTopEnd="4dp"
+                app:boxCornerRadiusTopStart="4dp"
+                app:endIconMode="clear_text"
+                app:helperText="@string/send_request_email_form_hint"
+                app:helperTextTextAppearance="@style/HelperTextAppearance">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/broad_answer_field"

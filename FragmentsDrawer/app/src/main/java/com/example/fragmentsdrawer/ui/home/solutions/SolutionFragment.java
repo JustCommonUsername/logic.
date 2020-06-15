@@ -20,6 +20,9 @@ import com.example.fragmentsdrawer.rooms.Equation;
 
 import java.util.List;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SolutionFragment extends Fragment {
 
     private CardView function, CDNF, CCNF;

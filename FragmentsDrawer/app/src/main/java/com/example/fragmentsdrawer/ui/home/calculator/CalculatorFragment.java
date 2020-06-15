@@ -62,8 +62,7 @@ public class CalculatorFragment extends Fragment {
     private Button action;
     private NavController controller;
     private CalculatorEditorViewAdapter adapter;
-
-    private Drawable editTextMainBackground;
+    private HomeCalculatorBinding binding;
 
     public static final int ADD_FORM = 0;
     public static final int EXTRA_INFO = -20;
@@ -78,7 +77,7 @@ public class CalculatorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                                 ViewGroup container, Bundle savedInstanceState) {
         activity = getActivity();
-        HomeCalculatorBinding binding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.home_calculator,
                 container,
@@ -88,7 +87,9 @@ public class CalculatorFragment extends Fragment {
         binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
-        return binding.getRoot();
+        View view = binding.getRoot();
+
+        return view;
     }
 
     @Override
@@ -103,12 +104,6 @@ public class CalculatorFragment extends Fragment {
         adapter = new CalculatorEditorViewAdapter(getContext(), new ArrayList<Character>(), viewModel, getActivity());
 
         container.setAdapter(adapter);
-
-        viewModel.getIsExceptionOccured().setValue(false);
-
-        editTextMainBackground = getLayoutInflater()
-                .inflate(R.layout.calculator_edit_text, null, false)
-                .getBackground();
 
         receiver = new CalculatorBroadcastReceiver();
 
@@ -135,13 +130,15 @@ public class CalculatorFragment extends Fragment {
                     return;
                 }
 
-                if (s == null || s.equals("null"))
+                if (s == null && viewModel.getCurrentEquation().getValue() != null)
                     viewModel.getCurrentEquation().setValue(null);
-                else
-                    answerPreview.setText("= " + s);
+                else if (equation != null)
+                    answerPreview.setText("= " + equation.getReducedFunction());
 
-                if (!TextUtils.isEmpty(s) && equation != null)
+                if (!TextUtils.isEmpty(s) && equation != null) {
+                    viewModel.setSolvedEquation(equation);
                     viewModel.insert(equation);
+                }
             }
         });
 
@@ -172,7 +169,14 @@ public class CalculatorFragment extends Fragment {
         viewModel.getCurrentEquation().postValue(viewModel.getCurrentEquation().getValue());
 
         // Returning the once given input to the editor
-        adapter.onResume(viewModel.getCurrentEquation().getValue());
+        if (adapter.getValuesList() == null)
+            adapter.onResume(viewModel.getCurrentEquation().getValue());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     @Override
@@ -216,10 +220,11 @@ public class CalculatorFragment extends Fragment {
             if (container != null) {
 
                 final int value = intent.getIntExtra(KeyboardInputService.INFO, 0);
+                final EditText focusedChild = (EditText)container.getFocusedChild();
                 int index;
 
                 try {
-                    index = container.indexOfChild(container.getFocusedChild());
+                    index = container.indexOfChild(focusedChild);
                 } catch (NullPointerException e) {
                     return;
                 }
@@ -235,7 +240,7 @@ public class CalculatorFragment extends Fragment {
                     case Keyboard.KEYCODE_DELETE:
                         // TODO: Check situation work below
                         try {
-                            adapter.delete((char) value, index);
+                            adapter.delete((char)value, index);
                         } catch (IllegalLogicEquationException e) {
                             viewModel.getIsExceptionOccured().setValue(true);
                         }
@@ -265,7 +270,7 @@ public class CalculatorFragment extends Fragment {
                         } catch (ClassCastException e) {
                             Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         } finally {
-                            viewModel.getCurrentEquation().setValue(equation.toString());
+                            viewModel.getCurrentEquation().setValue(equation.toString().equals("null") ? null : equation.toString());
                         }
 
                         break;
