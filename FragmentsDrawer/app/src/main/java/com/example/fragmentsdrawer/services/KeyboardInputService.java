@@ -19,6 +19,7 @@ public class KeyboardInputService extends InputMethodService implements Keyboard
 
     public static final String CHANNEL = "KEYBOARD_CHANNEL";
     public static final String INFO = "INFO";
+    public static final String TEXT = "TEXT";
 
     private static int fields = 1;
 
@@ -60,7 +61,7 @@ public class KeyboardInputService extends InputMethodService implements Keyboard
                     connection.deleteSurroundingText(1, 0); */
 
                 // Broadcast to delete empty EditText ONLY
-                sendBroadcast(i.putExtra(INFO, primaryCode));
+                sendBroadcast(i.putExtra(TEXT, before.length() > 0 ? before.toString() : after.toString()));
                 fields--;
             // If statement checks, whether there is text to add
             } else if (primaryCode > 2) {

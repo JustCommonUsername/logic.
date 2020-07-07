@@ -1,18 +1,23 @@
 grammar Binary;
 
+@header {
+    package com.example.fragmentsdrawer.core;
+}
+
 // Shown below is a grammar for parsing a binary algebra expression
 // Annotations to right of alternatives are needed for code generation
 expr
-    : expr XOR expr        #XOR
-    | LPAREN expr RPAREN   #PARENTHESIS
-    | NOT expr             #NOT
-    | expr AND expr        #AND
-    | expr OR expr         #OR
-    | expr IMP expr        #IMPLICATION
-    | expr EQ expr         #EQUAL
-    | INT                  #INTEGER
-    | VAR                  #VARIABLE
-    | WS                   #WHITESPACE
+    : expr EOF             #EOF
+    | LPAREN expr RPAREN   #ParExpr
+    | NOT expr             #NotBlock
+    | expr AND expr        #AndBlock
+    | expr OR expr         #OrBlock
+    | expr IMP expr        #ImplBlock
+    | expr EQ expr         #EqualBlock
+    | expr XOR expr        #XorBlock
+    | INT                  #Int
+    | VAR                  #Var
+    | WS                   #WS
     ;
 
 NOT: '¬';

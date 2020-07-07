@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -47,6 +48,7 @@ import com.google.android.material.snackbar.Snackbar;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -64,7 +66,7 @@ public class CalculatorFragment extends Fragment {
     private CalculatorEditorViewAdapter adapter;
     private HomeCalculatorBinding binding;
 
-    public static final int ADD_FORM = 0;
+    public static final int KEYCODE_DELETE = 0;
     public static final int EXTRA_INFO = -20;
     public static final int EXTRA_LETTERS = -30;
     public static final int LEFT_BRACKET = -100;
@@ -87,7 +89,7 @@ public class CalculatorFragment extends Fragment {
         binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
-        View view = binding.getRoot();
+        final View view = binding.getRoot();
 
         return view;
     }
@@ -113,7 +115,7 @@ public class CalculatorFragment extends Fragment {
                 if (hasFocus)
                     MainActivity.showKeyboardFrom(activity.getApplicationContext(), container);
                 else
-                    MainActivity.hideKeyboardFrom(activity.getApplicationContext(), CalculatorFragment.this);
+                    MainActivity.hideKeyboardFrom(activity.getApplicationContext(), CalculatorFragment.this.getView().getRootView());
             }
         });
 
@@ -121,24 +123,9 @@ public class CalculatorFragment extends Fragment {
         viewModel.getCurrentEquation().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Equation equation;
-
-                try {
-                    equation = EquationFactory.construct(s);
-                } catch (IllegalLogicEquationException e) {
-                    viewModel.getIsExceptionOccured().postValue(true);
-                    return;
-                }
-
-                if (s == null && viewModel.getCurrentEquation().getValue() != null)
-                    viewModel.getCurrentEquation().setValue(null);
-                else if (equation != null)
-                    answerPreview.setText("= " + equation.getReducedFunction());
-
-                if (!TextUtils.isEmpty(s) && equation != null) {
-                    viewModel.setSolvedEquation(equation);
-                    viewModel.insert(equation);
-                }
+                SolvingTask solving = new SolvingTask();
+                // Executing solving algorithm in background thread
+                solving.execute(s);
             }
         });
 
@@ -147,6 +134,8 @@ public class CalculatorFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     controller.navigate(R.id.nav_home_solution);
+                    if (viewModel.getSolvedEquation() != null)
+                        viewModel.insert(viewModel.getSolvedEquation());
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -165,12 +154,19 @@ public class CalculatorFragment extends Fragment {
             e.printStackTrace();
         }
 
-        // Forcing LiveData to observe its value
-        viewModel.getCurrentEquation().postValue(viewModel.getCurrentEquation().getValue());
+        if (viewModel.getCurrentEquation().getValue() != null) {
+            // Returning the once given input to the editor
+            ArrayList<Character> list = new ArrayList<>(viewModel.getCurrentEquation().getValue().length());
 
-        // Returning the once given input to the editor
-        if (adapter.getValuesList() == null)
-            adapter.onResume(viewModel.getCurrentEquation().getValue());
+            // Adding zero character
+            list.add('\0');
+
+            for (char character : viewModel.getCurrentEquation().getValue().toCharArray())
+                list.add(character);
+
+            adapter.onResume(list);
+        } else
+            viewModel.getIsEquationEmpty().setValue(true);
     }
 
     @Override
@@ -183,10 +179,13 @@ public class CalculatorFragment extends Fragment {
     public void onPause() {
         super.onPause();
         // Handling the keyboard close when the fragment is not seen
-        MainActivity.hideKeyboardFrom(activity.getApplicationContext(), this);
+        MainActivity.hideKeyboardFrom(activity.getApplicationContext(), this.getView().getRootView());
 
-        // Saving data in calculator to ViewModel
-        viewModel.getCurrentEquation().setValue(adapter.fields());
+        // Saving value from the adapter
+        viewModel.getCurrentEquation().postValue(adapter.fields());
+
+        if (TextUtils.isEmpty(viewModel.getCurrentEquation().getValue()))
+            viewModel.getIsEquationEmpty().postValue(true);
 
         // Unregistering receiver from a fragment to avoid memory leaks
         try {
@@ -220,11 +219,12 @@ public class CalculatorFragment extends Fragment {
             if (container != null) {
 
                 final int value = intent.getIntExtra(KeyboardInputService.INFO, 0);
+
                 final EditText focusedChild = (EditText)container.getFocusedChild();
                 int index;
 
                 try {
-                    index = container.indexOfChild(focusedChild);
+                    index = container.getChildAdapterPosition(focusedChild);
                 } catch (NullPointerException e) {
                     return;
                 }
@@ -232,57 +232,76 @@ public class CalculatorFragment extends Fragment {
                 // Changing mode of a observable data so, that there is no pending problem
                 viewModel.getIsExceptionOccured().setValue(false);
 
+                viewModel.getIsEquationEmpty().setValue(false);
+
                 switch (value) {
                     case EXTRA_INFO:
                     case EXTRA_LETTERS:
                         // TODO: Implement keyboard key response
                         break;
-                    case Keyboard.KEYCODE_DELETE:
+                    case KEYCODE_DELETE:
                         // TODO: Check situation work below
-                        try {
-                            adapter.delete((char)value, index);
-                        } catch (IllegalLogicEquationException e) {
-                            viewModel.getIsExceptionOccured().setValue(true);
-                        }
-                        break;
-                    case Keyboard.KEYCODE_CANCEL:
-                        try {
-                            MainActivity.hideKeyboardFrom(getActivity().getApplicationContext(), CalculatorFragment.this);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        String text = intent.getStringExtra(KeyboardInputService.TEXT);
+                        if (text != null)
+                            adapter.delete(text.toCharArray()[0], index);
                         break;
                     case Keyboard.EDGE_LEFT:
                         adapter.changePosition(index - 1);
+                        container.smoothScrollToPosition(index > 0 ? index - 1 : 0);
                         break;
                     case Keyboard.EDGE_RIGHT:
                         adapter.changePosition(index + 1);
+                        container.smoothScrollToPosition(index < adapter.getItemCount() ? index + 1 : adapter.getItemCount());
                         break;
                     case Keyboard.KEYCODE_DONE:
-                        StringBuffer equation = new StringBuffer();
+                        String equation = adapter.fields();
 
-                        try {
-                            // Building the current equation, which was added by user
-                            for (int i = 1; i < container.getChildCount(); i++) {
-                                TextView current = (TextView)container.getChildAt(i);
-                                equation.append(current.getText().toString());
-                            }
-                        } catch (ClassCastException e) {
-                            Toast.makeText(getActivity().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        } finally {
-                            viewModel.getCurrentEquation().setValue(equation.toString().equals("null") ? null : equation.toString());
-                        }
+                        if (TextUtils.isEmpty(equation))
+                            viewModel.getIsEquationEmpty().setValue(true);
+                        else
+                            viewModel.getCurrentEquation().setValue(equation);
 
                         break;
                     case HIDE_KEYBOARD:
-                        if (getActivity().getApplicationContext() != null)
-                            MainActivity.hideKeyboardFrom(getActivity().getApplicationContext(), CalculatorFragment.this);
+                    case Keyboard.KEYCODE_CANCEL:
                         break;
                     default:
                         adapter.add((char)value, index);
+                        container.smoothScrollToPosition(adapter.getItemCount());
                 }
 
             }
+        }
+
+    }
+
+    private class SolvingTask extends AsyncTask<String, Void, Equation> {
+
+        @Override
+        public Equation doInBackground(String... params) {
+            Equation equation;
+
+            try {
+                equation = EquationFactory.construct(params[0]);
+            } catch (IllegalLogicEquationException e) {
+                return null;
+            }
+
+            return equation;
+        }
+
+        @Override
+        public void onPostExecute(Equation result) {
+            if (result == null && viewModel.getCurrentEquation().getValue() != null) {
+                viewModel.setSolvedEquation(null);
+                viewModel.getIsEquationEmpty().postValue(true);
+                viewModel.getIsExceptionOccured().postValue(true);
+            } else if (result != null) {
+                viewModel.getIsEquationEmpty().postValue(false);
+                answerPreview.setText("= " + result.getReducedFunction());
+                viewModel.setSolvedEquation(result);
+            } else
+                viewModel.getIsEquationEmpty().postValue(true);
         }
 
     }

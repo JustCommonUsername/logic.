@@ -1,27 +1,18 @@
 package com.example.fragmentsdrawer.ui.home.solutions;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.WorkerThread;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.fragmentsdrawer.R;
 import com.example.fragmentsdrawer.models.CalculatorViewModel;
-import com.example.fragmentsdrawer.rooms.Equation;
-
-import java.util.List;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SolutionFragment extends Fragment {
 
@@ -40,6 +31,10 @@ public class SolutionFragment extends Fragment {
         CCNF = view.findViewById(R.id.ccnf);
         CDNF = view.findViewById(R.id.cdnf);
 
+        function.findViewById(R.id.solution_manual_scroll).setVisibility(View.VISIBLE);
+        function.findViewById(R.id.solution_wide_description).setVisibility(View.VISIBLE);
+        function.findViewById(R.id.solution_arrow_image).setVisibility(View.VISIBLE);
+
         ((TextView)function.findViewById(R.id.solution_item_name)).setText("Function");
         ((TextView)CCNF.findViewById(R.id.solution_item_name)).setText("CCNF");
         ((TextView)CDNF.findViewById(R.id.solution_item_name)).setText("CDNF");
@@ -53,11 +48,13 @@ public class SolutionFragment extends Fragment {
         TextView answer = function.findViewById(R.id.solution_item_verbose);
         TextView ccnf = CCNF.findViewById(R.id.solution_item_verbose);
         TextView cdnf = CDNF.findViewById(R.id.solution_item_verbose);
+        TextView manual = function.findViewById(R.id.solution_manual_string);
 
         try {
             answer.setText(viewModel.getSolvedEquation().getReducedFunction());
             ccnf.setText(viewModel.getSolvedEquation().getCNF());
             cdnf.setText(viewModel.getSolvedEquation().getDNF());
+            manual.setText(viewModel.getSolvedEquation().getFunction());
         } catch (NullPointerException e) {
             answer.setText("Re-enter input");
             ccnf.setText("Re-enter input");

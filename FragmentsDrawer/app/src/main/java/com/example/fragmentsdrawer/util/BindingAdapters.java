@@ -20,8 +20,12 @@ public class BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("hideIfZero")
-    public static void hideIfZero(View view, String string) {
-        view.setVisibility(string == null || string.length() == 0 || string.equals("= null") ? View.GONE : View.VISIBLE);
+    public static void hideIfZero(View view, Boolean isEmpty) {
+        try {
+            view.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @JvmStatic

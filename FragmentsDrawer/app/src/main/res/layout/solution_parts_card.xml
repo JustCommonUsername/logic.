@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="changed"
+            type="String" />
+        <variable
+            name="typeOfChange"
+            type="String" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="25dp"
+        android:background="@drawable/border_solution_card">
+
+        <HorizontalScrollView
+            android:id="@+id/part_changed_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/part_changed_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@{changed}"
+                tools:text="A+B=A+!B" />
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_below="@id/part_changed_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{typeOfChange}"
+            android:layout_marginTop="3dp"
+            android:textSize="12sp"
+            android:textColor="@color/secondaryEditorColor"
+            android:id="@+id/part_changed_hint"
+            tools:text="Упростить значение в скобках" />
+
+        <ImageButton
+            android:id="@+id/solution_brief_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/solutions_part_action_more_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@null"/>
+
+    </RelativeLayout>
+
+
+</layout>

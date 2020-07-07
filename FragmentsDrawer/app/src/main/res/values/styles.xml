@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppThemeFirst" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+        <!-- Customize your theme here. Manual - 'Theme.AppCompat.Light';'@android:Theme.Material' -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryLightColor</item>
@@ -12,6 +12,14 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="colorControlNormal">@color/secondaryColor</item>
         <item name="colorControlActivated">@color/secondaryColor</item>
+
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_layers_drawable</item>
     </style>
 
     <style name="AppThemeMaterial" parent="Theme.MaterialComponents.Light">
@@ -52,13 +60,16 @@
         <item name="color">@color/secondaryColor</item>
     </style>
 
-    <style name="TitleExpandedAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="TitleAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/secondaryColor</item>
         <item name="android:fontFamily">@font/comfortaa_bold</item>
+    </style>
+
+    <style name="TitleAppearance.Expanded">
         <item name="android:textSize">40sp</item>
     </style>
 
-    <style name="TitleExpandedAppearance.Solution" parent="TitleExpandedAppearance">
+    <style name="TitleExpandedAppearance.Solution" parent="TitleAppearance.Expanded">
         <item name="android:textColor">@color/secondaryTextColor</item>
     </style>
 

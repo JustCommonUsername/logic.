@@ -31,20 +31,20 @@
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/toolbar_collapsing"
+                    setCurrentTheme="@{destination}"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    android:fitsSystemWindows="true"
                     app:collapsedTitleGravity="center_horizontal"
                     app:expandedTitleMarginStart="20dp"
-                    app:expandedTitleTextAppearance="@style/TitleExpandedAppearance"
-                    setCurrentTheme="@{destination}"
-                    android:fitsSystemWindows="true">
+                    app:expandedTitleTextAppearance="@style/TitleAppearance.Expanded"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar_consistent"
+                        setCurrentTheme="@{destination}"
                         android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        setCurrentTheme="@{destination}" />
+                        android:layout_height="?attr/actionBarSize" />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 

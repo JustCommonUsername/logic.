@@ -1,23 +1,41 @@
 package com.example.fragmentsdrawer.core;
 
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Pair;
+
+import com.example.fragmentsdrawer.MainActivity;
 import com.example.fragmentsdrawer.rooms.Equation;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
 import org.logicng.io.parsers.ParserException;
 import org.logicng.io.parsers.PropositionalParser;
 import org.logicng.transformations.qmc.QuineMcCluskeyAlgorithm;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class EquationFactory {
 
-    public static Equation construct(String input) throws IllegalLogicEquationException {
+    private static ArrayList<Pair<String, String>> steps = new ArrayList<>(5);
+    private static Equation previous;
+
+    public static synchronized Equation construct(String input) throws IllegalLogicEquationException {
         // TODO: Implement construction
-        if (input != null) {
-            ReversePolishNotation source = ReversePolishNotation.getRPNObject(input);
+        if (input != null && !TextUtils.isEmpty(input)) {
+            // TODO: Implement usage
+            // Trivial simplification algorithm
+            try {
+                String simplified = printTreeNodes(input);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
 
             // Implementing equation simplification
             final FormulaFactory factory = new FormulaFactory();
@@ -25,52 +43,94 @@ public class EquationFactory {
             final Formula formula;
 
             try {
-                formula = parser.parse(prepareFunctionTo(input));
+                formula = parser.parse(EquationString.prepareFunctionTo(input));
             } catch (ParserException e) {
+                /* Handling wrong equation situation.
+                In case an equation is wrong, PropositionParser object will throw ParserException.
+                In that case it is important to escalate exception further */
                 throw new IllegalLogicEquationException();
             }
 
             final Formula result = QuineMcCluskeyAlgorithm.compute(formula);
 
-            return new Equation(input,
-                    "Function", "Quine-McCluskey algorithm", null,
-                    source.CDNF, source.CCNF, prepareFunctionFrom(result.toString()));
+            // First step of building an answer - RPN
+            ReversePolishNotation source = ReversePolishNotation.getRPNObject(EquationString.prepareFunctionFrom(result.toString()));
+
+            return (previous = new Equation(
+                    System.currentTimeMillis(),
+                    input,
+                    "Function",
+                    "Quine-McCluskey algorithm",
+                    steps,
+                    source.CCNF,
+                    source.CDNF,
+                    EquationString.prepareFunctionFrom(result.toString())
+            ));
         }
         return null;
     }
 
-    /* TODO: Needed for testing parsing method, implement
+    /* TODO: Needed for testing parsing method, implement */
 
+    // Method below is needed for trivial function simplification
+    private static String printTreeNodes(String input) {
+        steps.clear();
+        boolean notChanged = false;
+        Pair<String, String> change;
 
-    public static void printTreeNodes(String input) {
-        ANTLRInputStream stream = new ANTLRInputStream(input);
-        BinaryLexer lexer = new BinaryLexer(stream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        BinaryParser parser = new BinaryParser(tokens);
-        parser.setBuildParseTree(true);
-    }
-    */
+        /** <b>Needed for debugging</b> **/ int previousLengthSteps = 0;
 
-    private static String prepareFunctionTo(String inputString) {
-        return inputString
-                .replaceAll("¬", "~")
-                .replaceAll("∧", "&")
-                .replaceAll("∨", "|")
-                .replaceAll("⇒", "=>")
-                .replaceAll("≡", "<=>");
-    }
+        // Cycles through changing input, while there are changes
+        while (!notChanged) {
+            // Building lexer, parser and tree for walking the equation
+            ANTLRInputStream stream = new ANTLRInputStream(input);
+            BinaryLexer lexer = new BinaryLexer(stream);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            BinaryParser parser = new BinaryParser(tokens);
+            parser.setBuildParseTree(true);
 
-    private static String prepareFunctionFrom(String inputString) {
-        return inputString
-                .replaceAll("!", "¬")
-                .replaceAll("&", "∧")
-                .replaceAll("[|]", "∨")
-                .replaceAll("<=>,", "≡")
-                .replaceAll("=>", "⇒");
+            // Initializing walking algorithm
+            ParenthesisListener listener = new ParenthesisListener();
+            ParseTreeWalker.DEFAULT.walk(listener, parser.expr());
+
+            // Getting a change from listener class and proceeding it
+            if ((change = listener.getChange()) != null)
+                steps.add(change);
+            // If changes weren't found, variable 'notChanged' changes its value so as to stop the cycle
+            else
+                notChanged = true;
+
+            // Changing the string, which is being simplified, in order to build new parse tree and walk it
+            // The part, which was simplified, and simplified main companion are written in Pair<> object
+            input = change != null ? input.replace(/* Changed part */ change.first, /* Its simplified form */ change.second) : input;
+
+            /**<b>Debugging the steps</b>**/
+
+            StringBuffer stepsBuffer = new StringBuffer();
+
+            for (Pair step: steps)
+                if (step != null)
+                    stepsBuffer.append("Manual: ").append(step.first).append(", changed: ").append(step.second).append(";\n");
+
+            Log.d("BINARY_PARSER steps", stepsBuffer.toString().length() != 0 && previousLengthSteps != steps.size() ? stepsBuffer.toString() : "No changes");
+            Log.d("BINARY_PARSER steps", "Input after change -> " + input);
+
+            previousLengthSteps = steps.size();
+        }
+
+        return input;
     }
 
 }
 
+
+/**<summary>
+     * <b>ReversePolishNotation</b> class is responsible for processing given logic equation
+     * and building its RPN, Complete Conjunction Normal Form and Complete Disjunction Normal Form.
+     * It also is responsible for checking equation and throwing special IllegalLogicEquationException
+     * in case equations syntax is wrong. It represents first step of building complete answer for user.
+ * </summary>
+ * **/
 class ReversePolishNotation {
     String RPN, CDNF, CCNF;
 
@@ -78,7 +138,7 @@ class ReversePolishNotation {
     private char[] results;
 
     private Hashtable<Character, Character[]> variables = new Hashtable<>();
-    private LinkedList<Character> foundVars = new LinkedList<>();
+    private ArrayList<Character> foundVars = new ArrayList<>(5);
 
     private LinkedList<Character> stack = new LinkedList<>();
     private Hashtable<Character, Integer> priorities = new Hashtable<>();
@@ -94,7 +154,7 @@ class ReversePolishNotation {
                 {"⊕", "0"}
         };
         for (String[] priority: distribution) {
-            priorities.put(priority[0].toCharArray()[0], Integer.parseInt(priority[1]));
+            priorities.put(priority[0].charAt(0), Integer.parseInt(priority[1]));
         }
     }
 
@@ -119,7 +179,7 @@ class ReversePolishNotation {
                     res.append(value);
                 else if (value >= 'A' && value <= 'Z') {
                     if (variables != null && !variables.contains(value)) {
-                        foundVars.push(value);
+                        foundVars.add(value);
                     }
                     res.append(value);
                 } else {
@@ -242,7 +302,7 @@ class ReversePolishNotation {
                     CCNF.append("(");
                     for (Object ch: foundVars.toArray())
                         CCNF.append((variables.get(ch)[row] == '1' ? "¬" : "") + ch + "∨");
-                    CCNF.append(")∧");
+                    CCNF.deleteCharAt(CCNF.length() - 1).append(")∧");
                 }
             }
 

@@ -18,11 +18,19 @@ android {
         }
     }
     dexOptions {
-        javaMaxHeapSize "2g"
+        javaMaxHeapSize "512m"
     }
     dataBinding {
         enabled true
     }
+
+    applicationVariants.all {
+        variant -> variant.getRuntimeConfiguration().exclude group: "org.antlr", module: "antlr4-runtime"
+    }
+}
+
+configurations {
+    runtime.exclude group:"org.antlr", module:"antlr4"
 }
 
 dependencies {
@@ -70,9 +78,6 @@ dependencies {
 
     // Adding Gson class
     implementation 'com.google.code.gson:gson:2.8.2'
-
-    // Implementing ANTLR plugin
-    implementation 'org.antlr:antlr4-runtime:4.8'
 
     // Implementing Emoji plugin
     implementation "androidx.emoji:emoji-appcompat:1.0.0"

@@ -19,6 +19,9 @@
     <string name="home_solution">Solutions</string>
 
     <string name="home_history_placeholder">Oops, looks like you haven\'t added any functions yet. Try adding them via Calculator</string>
+    <string name="home_history_snackbar_question_text">Would you like to undo?</string>
+
+    <string name="solution_item_description_text_whole">In our particular case, we had to use Quine-McCluskey algorithm</string>
 
     <string name="solution_steps">Solution Steps</string>
     <string name="more">More</string>
@@ -42,6 +45,7 @@
     <string name="send_request_action_button_text">Send</string>
     <string name="send_request_email_form_explanation">Enter your e-mail</string>
     <string name="send_request_email_form_hint">Please, enter your relevant e-mail address, so that we could contact you and clarify the problem</string>
+    <string name="send_request_status">One moment, please...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

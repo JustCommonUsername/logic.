@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
                                 tab.setIcon(R.drawable.ic_history_primary_light_24dp);
                                 break;
                             default:
-                                Toast.makeText(getActivity().getApplicationContext(), "Unavailable tab", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity().getApplicationContext(), "Недоступная в данный момент страница", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).attach();
@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onPageSelected(int position) {
-                    MainActivity.hideKeyboardFrom(getActivity().getApplicationContext(), HomeFragment.this);
+                    MainActivity.hideKeyboardFrom(getActivity().getApplicationContext(), HomeFragment.this.getView().getRootView());
                     switch (position) {
                         case 0:
                             toolbar.setTitle(getString(R.string.home_calculator));

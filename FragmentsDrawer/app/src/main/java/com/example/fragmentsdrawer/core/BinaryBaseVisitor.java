@@ -1,5 +1,7 @@
 // Generated from C:/TemporaryProjects/Temporary folder, Tasks to test, Android/Tasks_to_test_on_08-02-2020/FragmentsDrawer/app/src/main/java/com/example/fragmentsdrawer/core\Binary.g4 by ANTLR 4.8
-package com.example.fragmentsdrawer.core;
+
+    package com.example.fragmentsdrawer.core;
+
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -17,68 +19,75 @@ public class BinaryBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNOT(BinaryParser.NOTContext ctx) { return visitChildren(ctx); }
+	@Override public T visitImplBlock(BinaryParser.ImplBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOR(BinaryParser.ORContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOrBlock(BinaryParser.OrBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVARIABLE(BinaryParser.VARIABLEContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAndBlock(BinaryParser.AndBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitWHITESPACE(BinaryParser.WHITESPACEContext ctx) { return visitChildren(ctx); }
+	@Override public T visitParExpr(BinaryParser.ParExprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEQUAL(BinaryParser.EQUALContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVar(BinaryParser.VarContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAND(BinaryParser.ANDContext ctx) { return visitChildren(ctx); }
+	@Override public T visitXorBlock(BinaryParser.XorBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPARENTHESIS(BinaryParser.PARENTHESISContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNotBlock(BinaryParser.NotBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitXOR(BinaryParser.XORContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWS(BinaryParser.WSContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIMPLICATION(BinaryParser.IMPLICATIONContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEOF(BinaryParser.EOFContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitINTEGER(BinaryParser.INTEGERContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInt(BinaryParser.IntContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitEqualBlock(BinaryParser.EqualBlockContext ctx) { return visitChildren(ctx); }
 }

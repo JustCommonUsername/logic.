@@ -21,6 +21,6 @@
         android:textColor="@color/secondaryColor"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:text="Sending..." />
+        android:text="@string/send_request_status" />
 
 </LinearLayout>

@@ -17,13 +17,12 @@ public class CalculatorViewModel extends AndroidViewModel {
     private LiveData<List<Equation>> mAllEquations;
     private MutableLiveData<String> mCurrentEquation = new MutableLiveData<>();
     private MutableLiveData<Boolean> isExceptionOccured = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isEquationEmpty = new MutableLiveData<>();
 
     {
         mCurrentEquation.setValue(null);
         isExceptionOccured.setValue(false);
     }
-
-    private Equation solvedEquation;
 
     public CalculatorViewModel(Application application) {
         super(application);
@@ -43,16 +42,24 @@ public class CalculatorViewModel extends AndroidViewModel {
         return isExceptionOccured;
     }
 
+    public MutableLiveData<Boolean> getIsEquationEmpty() {
+        return isEquationEmpty;
+    }
+
     public void setSolvedEquation(Equation equation) {
-        this.solvedEquation = equation;
+        repository.setCurrentSolvedEquation(equation);
     }
 
     public Equation getSolvedEquation() {
-        return solvedEquation;
+        return repository.getCurrentSolvedEquation();
     }
 
     public void insert(Equation equation) {
         repository.insert(equation);
+    }
+
+    public void delete(Equation equation) {
+        repository.delete(equation);
     }
 
 }

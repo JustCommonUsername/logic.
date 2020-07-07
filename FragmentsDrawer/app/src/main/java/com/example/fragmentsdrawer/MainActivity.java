@@ -1,18 +1,18 @@
 package com.example.fragmentsdrawer;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 
 import com.example.fragmentsdrawer.databinding.ActivityMainBinding;
-import com.example.fragmentsdrawer.databinding.AppBarMainBinding;
 import com.example.fragmentsdrawer.models.CalculatorViewModel;
-import com.example.fragmentsdrawer.rooms.Equation;
 import com.example.fragmentsdrawer.services.KeyboardInputService;
 import com.example.fragmentsdrawer.ui.home.calculator.CalculatorFragment;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import android.view.MenuItem;
@@ -21,15 +21,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -47,15 +40,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import java.util.LinkedList;
-
-import kotlin.jvm.JvmStatic;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
@@ -73,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements
     private DrawerLayout drawer;
     private CollapsingToolbarLayout layout;
 
+    private BroadcastReceiver receiver;
+
     private CalculatorViewModel viewModel;
 
     @Override
@@ -80,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         /** Implementing usage of Data Binding Library (<layout></layout> tags in layout correspond to it) **/
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         toolbar = binding.appBarMain.toolbarConsistent;
         setSupportActionBar(toolbar);
@@ -100,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_about_us, R.id.nav_request)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_about_us, R.id.nav_request, R.id.nav_home_solution)
                 .setDrawerLayout(drawer)
                 .build();
         NavigationUI.setupWithNavController(layout, toolbar, navController, mAppBarConfiguration);
@@ -154,6 +142,19 @@ public class MainActivity extends AppCompatActivity implements
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                final int value = intent.getIntExtra(KeyboardInputService.INFO, 0);
+
+                if (value == CalculatorFragment.HIDE_KEYBOARD || value == Keyboard.KEYCODE_CANCEL)
+                    if (getApplicationContext() != null)
+                        hideKeyboardFrom(getApplicationContext(), binding.getRoot());
+            }
+        };
+
+        registerReceiver(receiver, new IntentFilter(KeyboardInputService.CHANNEL));
     }
 
     @Override
@@ -220,6 +221,8 @@ public class MainActivity extends AppCompatActivity implements
         // Handling change of the destinations and removing drawer from solution fragment
         switch (destination.getId()) {
             case R.id.nav_about_us:
+                drawer.setEnabled(true);
+
                 toolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
                 layout.setBackgroundColor(getResources().getColor(R.color.backgroundSolutionColor));
                 layout.setExpandedTitleColor(getResources().getColor(R.color.primaryColor));
@@ -234,8 +237,8 @@ public class MainActivity extends AppCompatActivity implements
                 fab.setVisibility(View.VISIBLE);
 
                 try {
-                    getActionBar().setDisplayHomeAsUpEnabled(false);
-                } catch (Exception e) {
+                    drawer.setEnabled(false);
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -247,13 +250,21 @@ public class MainActivity extends AppCompatActivity implements
                 layout.setBackgroundColor(getResources().getColor(R.color.primaryColor));
                 layout.setExpandedTitleColor(getResources().getColor(R.color.secondaryColor));
                 fab.setVisibility(View.GONE);
+
+                drawer.setEnabled(true);
         }
         currentDestination.postValue(destination.getId());
     }
 
-    public static void hideKeyboardFrom(Context context, Fragment fragment) {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
+    public static void hideKeyboardFrom(Context context, View root) {
         InputMethodManager IMM = (InputMethodManager)context.getSystemService(Service.INPUT_METHOD_SERVICE);
-        IMM.hideSoftInputFromWindow(fragment.getView().getRootView().getWindowToken(), 0);
+        IMM.hideSoftInputFromWindow(root.getWindowToken(), 0);
     }
 
     public static void showKeyboardFrom(Context context, View view) {

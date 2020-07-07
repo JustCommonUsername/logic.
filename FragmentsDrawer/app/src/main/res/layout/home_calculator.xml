@@ -5,6 +5,7 @@
 
     <data>
         <import type="com.example.fragmentsdrawer.models.CalculatorViewModel" />
+        <import type="android.view.View"/>
         <variable
             name="viewmodel"
             type="CalculatorViewModel" />
@@ -41,7 +42,7 @@
                 android:paddingRight="18dp"
                 android:background="@drawable/calculator_answer_left_border"
                 android:layout_marginBottom="50dp"
-                hideIfZero="@{viewmodel.getCurrentEquation()}">
+                hideIfZero="@{viewmodel.getIsEquationEmpty()}">
 
                 <TextView
                     android:id="@+id/calculator_preview_answer"
@@ -86,7 +87,7 @@
                 android:textSize="10sp"
                 android:padding="5dp"
                 android:text="@string/next"
-                hideIfZero="@{viewmodel.getCurrentEquation()}" />
+                hideIfZero="@{viewmodel.getIsEquationEmpty()}" />
 
         </RelativeLayout>
 

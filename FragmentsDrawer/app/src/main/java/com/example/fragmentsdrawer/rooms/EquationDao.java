@@ -23,4 +23,7 @@ public interface EquationDao {
     @Query("SELECT * FROM calculator_history WHERE function = :function")
     LiveData<List<Equation>> getGivenEquation(String function);
 
+    @Query("DELETE FROM calculator_history WHERE date = :date")
+    void delete(long date);
+
 }

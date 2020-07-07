@@ -1,5 +1,7 @@
 package com.example.fragmentsdrawer.rooms;
 
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 public class Equation {
 
     @PrimaryKey
+    private long date;
+
     @NonNull
     private String function;
 
@@ -26,7 +30,7 @@ public class Equation {
     @NonNull
     private String howChanged;
 
-    private ArrayList<String> steps;
+    private ArrayList<Pair<String, String>> steps;
 
     private String CNF;
 
@@ -60,7 +64,7 @@ public class Equation {
         return DNF;
     }
 
-    public ArrayList<String> getSteps() {
+    public ArrayList<Pair<String, String>> getSteps() {
         return steps;
     }
 
@@ -68,8 +72,13 @@ public class Equation {
         this.function = function;
     }
 
-    public Equation(@NonNull String function, @NonNull String type, @NonNull String howChanged, ArrayList<String> steps,
+    public long getDate() {
+        return date;
+    }
+
+    public Equation(long date, @NonNull String function, @NonNull String type, @NonNull String howChanged, ArrayList<Pair<String, String>> steps,
                     String CNF, String DNF, @NonNull String reducedFunction) {
+        this.date = date;
         this.function = function;
         this.type = type;
         this.howChanged = howChanged;

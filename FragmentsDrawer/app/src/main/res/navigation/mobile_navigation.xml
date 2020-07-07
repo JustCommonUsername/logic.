@@ -13,10 +13,10 @@
         <action
             android:id="@+id/action_nav_home_to_nav_home_solution"
             app:destination="@id/nav_home_solution"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@+id/nav_home"
             app:popUpToInclusive="false" />
     </fragment>
@@ -44,6 +44,6 @@
         android:id="@+id/nav_home_solution"
         android:name="com.example.fragmentsdrawer.ui.home.solutions.SolutionFragment"
         android:label="@string/home_solution"
-        tools:layout="@layout/solutions_main" />
+        tools:layout="@layout/solutions_layout_part" />
 
 </navigation>

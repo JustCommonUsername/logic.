@@ -17,6 +17,7 @@ public class EquationRepository {
 
     private EquationDao mEquationDao;
     private LiveData<List<Equation>> mAllEquations;
+    private Equation currentSolvedEquation;
 
     public static EquationRepository INSTANCE;
 
@@ -46,6 +47,19 @@ public class EquationRepository {
         new InsertEquationTask(mEquationDao).execute(equation);
     }
 
+    public void delete(Equation equation) {
+        new DeleteEquationTask(mEquationDao).execute(equation);
+    }
+
+    public void setCurrentSolvedEquation(Equation equation) {
+        if (equation != null)
+            currentSolvedEquation = equation;
+    }
+
+    public Equation getCurrentSolvedEquation() {
+        return currentSolvedEquation;
+    }
+
     private static class InsertEquationTask extends AsyncTask<Equation, Void, Void> {
 
         private EquationDao mEquationTaskDao;
@@ -62,19 +76,18 @@ public class EquationRepository {
 
     }
 
-    private class FetchData extends Thread {
+    private static class DeleteEquationTask extends AsyncTask<Equation, Void, Void> {
 
-        LiveData<List<Equation>> equation;
-        EquationDao dao;
+        private EquationDao mEquationDao;
 
-        FetchData(MutableLiveData<List<Equation>> equation, EquationDao dao) {
-            this.equation = equation;
-            this.dao = dao;
+        DeleteEquationTask(EquationDao dao) {
+            mEquationDao = dao;
         }
 
         @Override
-        public void run() {
-            equation = dao.getAllEquations();
+        protected Void doInBackground(final Equation... params) {
+            mEquationDao.delete(/* Deleting given in parameters equation */params[0].getDate());
+            return null;
         }
 
     }

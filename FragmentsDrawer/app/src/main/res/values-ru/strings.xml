@@ -35,4 +35,7 @@
     <string name="home_history_placeholder">Упс, похоже, вы еще не успели добавить функцию. Добавьте ее в Калькуляторе</string>
     <string name="send_request_email_form_explanation">Введите свой e-mail</string>
     <string name="send_request_email_form_hint">Введите свой актуальный адрес электронной почты, чтобы мы могли связаться с Вами для уточнения проблемы</string>
+    <string name="send_request_status">Секундочку...</string>
+    <string name="home_history_snackbar_question_text">Возможно, нужно восстановить?</string>
+    <string name="solution_item_description_text_whole">В данном случае, необходимо было использовать алгоритм Квайна-МакКласки.</string>
 </resources>

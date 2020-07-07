@@ -1,5 +1,7 @@
 // Generated from C:/TemporaryProjects/Temporary folder, Tasks to test, Android/Tasks_to_test_on_08-02-2020/FragmentsDrawer/app/src/main/java/com/example/fragmentsdrawer/core\Binary.g4 by ANTLR 4.8
-package com.example.fragmentsdrawer.core;
+
+    package com.example.fragmentsdrawer.core;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -8,123 +10,135 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface BinaryListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by the {@code NOT}
+	 * Enter a parse tree produced by the {@code ImplBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterNOT(BinaryParser.NOTContext ctx);
+	void enterImplBlock(BinaryParser.ImplBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NOT}
+	 * Exit a parse tree produced by the {@code ImplBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitNOT(BinaryParser.NOTContext ctx);
+	void exitImplBlock(BinaryParser.ImplBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code OR}
+	 * Enter a parse tree produced by the {@code OrBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterOR(BinaryParser.ORContext ctx);
+	void enterOrBlock(BinaryParser.OrBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code OR}
+	 * Exit a parse tree produced by the {@code OrBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitOR(BinaryParser.ORContext ctx);
+	void exitOrBlock(BinaryParser.OrBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code VARIABLE}
+	 * Enter a parse tree produced by the {@code AndBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterVARIABLE(BinaryParser.VARIABLEContext ctx);
+	void enterAndBlock(BinaryParser.AndBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code VARIABLE}
+	 * Exit a parse tree produced by the {@code AndBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitVARIABLE(BinaryParser.VARIABLEContext ctx);
+	void exitAndBlock(BinaryParser.AndBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code WHITESPACE}
+	 * Enter a parse tree produced by the {@code ParExpr}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterWHITESPACE(BinaryParser.WHITESPACEContext ctx);
+	void enterParExpr(BinaryParser.ParExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code WHITESPACE}
+	 * Exit a parse tree produced by the {@code ParExpr}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitWHITESPACE(BinaryParser.WHITESPACEContext ctx);
+	void exitParExpr(BinaryParser.ParExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code EQUAL}
+	 * Enter a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterEQUAL(BinaryParser.EQUALContext ctx);
+	void enterVar(BinaryParser.VarContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code EQUAL}
+	 * Exit a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitEQUAL(BinaryParser.EQUALContext ctx);
+	void exitVar(BinaryParser.VarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AND}
+	 * Enter a parse tree produced by the {@code XorBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAND(BinaryParser.ANDContext ctx);
+	void enterXorBlock(BinaryParser.XorBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AND}
+	 * Exit a parse tree produced by the {@code XorBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAND(BinaryParser.ANDContext ctx);
+	void exitXorBlock(BinaryParser.XorBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PARENTHESIS}
+	 * Enter a parse tree produced by the {@code NotBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterPARENTHESIS(BinaryParser.PARENTHESISContext ctx);
+	void enterNotBlock(BinaryParser.NotBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PARENTHESIS}
+	 * Exit a parse tree produced by the {@code NotBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitPARENTHESIS(BinaryParser.PARENTHESISContext ctx);
+	void exitNotBlock(BinaryParser.NotBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code XOR}
+	 * Enter a parse tree produced by the {@code WS}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterXOR(BinaryParser.XORContext ctx);
+	void enterWS(BinaryParser.WSContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code XOR}
+	 * Exit a parse tree produced by the {@code WS}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitXOR(BinaryParser.XORContext ctx);
+	void exitWS(BinaryParser.WSContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IMPLICATION}
+	 * Enter a parse tree produced by the {@code EOF}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterIMPLICATION(BinaryParser.IMPLICATIONContext ctx);
+	void enterEOF(BinaryParser.EOFContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code IMPLICATION}
+	 * Exit a parse tree produced by the {@code EOF}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitIMPLICATION(BinaryParser.IMPLICATIONContext ctx);
+	void exitEOF(BinaryParser.EOFContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code INTEGER}
+	 * Enter a parse tree produced by the {@code Int}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterINTEGER(BinaryParser.INTEGERContext ctx);
+	void enterInt(BinaryParser.IntContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code INTEGER}
+	 * Exit a parse tree produced by the {@code Int}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitINTEGER(BinaryParser.INTEGERContext ctx);
+	void exitInt(BinaryParser.IntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code EqualBlock}
+	 * labeled alternative in {@link BinaryParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualBlock(BinaryParser.EqualBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EqualBlock}
+	 * labeled alternative in {@link BinaryParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualBlock(BinaryParser.EqualBlockContext ctx);
 }

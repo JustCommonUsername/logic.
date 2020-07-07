@@ -1,35 +1,51 @@
 package com.example.fragmentsdrawer.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fragmentsdrawer.R;
 import com.example.fragmentsdrawer.models.CalculatorViewModel;
 import com.example.fragmentsdrawer.rooms.Equation;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.HistoryViewHolder> {
 
-    private LayoutInflater inflater;
+    private @NonNull LayoutInflater inflater;
     private List<Equation> mEquationList;
     private NavController controller;
     private CalculatorViewModel viewModel;
+    private RelativeLayout historyViewContainer;
 
-    public HistoryViewAdapter(Context context, List<Equation> mEquationList, NavController navController, CalculatorViewModel viewModel) {
+    private int recentlyDeletedIndex;
+    private Equation recentlyDeletedEquation;
+
+    public HistoryViewAdapter(Context context, List<Equation> mEquationList, NavController navController, CalculatorViewModel viewModel, RelativeLayout historyViewContainer) {
         inflater = LayoutInflater.from(context);
         this.mEquationList = mEquationList;
         controller = navController;
         this.viewModel = viewModel;
+        this.historyViewContainer = historyViewContainer;
+    }
+
+    @NonNull
+    public LayoutInflater getInflater() {
+        return inflater;
     }
 
     @NonNull
@@ -57,6 +73,39 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
         if (mEquationList != null)
             return mEquationList.size();
         return 0;
+    }
+
+    public void deleteItem(int index) {
+        recentlyDeletedIndex = index;
+        recentlyDeletedEquation = mEquationList.get(recentlyDeletedIndex);
+
+        mEquationList.remove(index);
+        notifyItemRemoved(index);
+
+        Snackbar
+                .make(historyViewContainer, R.string.home_history_snackbar_question_text, Snackbar.LENGTH_SHORT)
+                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        if (event != Snackbar.Callback.DISMISS_EVENT_ACTION)
+                            viewModel.delete(recentlyDeletedEquation);
+                    }
+                })
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        resetItem(recentlyDeletedIndex, recentlyDeletedEquation);
+                    }
+                })
+                .setTextColor(inflater.getContext().getResources().getColor(R.color.primaryColor))
+                .setActionTextColor(inflater.getContext().getResources().getColor(R.color.secondaryColor))
+                .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
+                .show();
+    }
+
+    public void resetItem(int index, Equation item) {
+        mEquationList.add(index, item);
+        notifyItemInserted(index);
     }
 
     public void setEquations(List<Equation> words) {

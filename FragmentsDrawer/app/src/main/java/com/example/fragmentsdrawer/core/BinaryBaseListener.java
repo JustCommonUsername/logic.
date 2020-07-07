@@ -1,5 +1,7 @@
 // Generated from C:/TemporaryProjects/Temporary folder, Tasks to test, Android/Tasks_to_test_on_08-02-2020/FragmentsDrawer/app/src/main/java/com/example/fragmentsdrawer/core\Binary.g4 by ANTLR 4.8
-package com.example.fragmentsdrawer.core;
+
+    package com.example.fragmentsdrawer.core;
+
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,121 +18,133 @@ public class BinaryBaseListener implements BinaryListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNOT(BinaryParser.NOTContext ctx) { }
+	@Override public void enterImplBlock(BinaryParser.ImplBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNOT(BinaryParser.NOTContext ctx) { }
+	@Override public void exitImplBlock(BinaryParser.ImplBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOR(BinaryParser.ORContext ctx) { }
+	@Override public void enterOrBlock(BinaryParser.OrBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOR(BinaryParser.ORContext ctx) { }
+	@Override public void exitOrBlock(BinaryParser.OrBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVARIABLE(BinaryParser.VARIABLEContext ctx) { }
+	@Override public void enterAndBlock(BinaryParser.AndBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVARIABLE(BinaryParser.VARIABLEContext ctx) { }
+	@Override public void exitAndBlock(BinaryParser.AndBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWHITESPACE(BinaryParser.WHITESPACEContext ctx) { }
+	@Override public void enterParExpr(BinaryParser.ParExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWHITESPACE(BinaryParser.WHITESPACEContext ctx) { }
+	@Override public void exitParExpr(BinaryParser.ParExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEQUAL(BinaryParser.EQUALContext ctx) { }
+	@Override public void enterVar(BinaryParser.VarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEQUAL(BinaryParser.EQUALContext ctx) { }
+	@Override public void exitVar(BinaryParser.VarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAND(BinaryParser.ANDContext ctx) { }
+	@Override public void enterXorBlock(BinaryParser.XorBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAND(BinaryParser.ANDContext ctx) { }
+	@Override public void exitXorBlock(BinaryParser.XorBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPARENTHESIS(BinaryParser.PARENTHESISContext ctx) { }
+	@Override public void enterNotBlock(BinaryParser.NotBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPARENTHESIS(BinaryParser.PARENTHESISContext ctx) { }
+	@Override public void exitNotBlock(BinaryParser.NotBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterXOR(BinaryParser.XORContext ctx) { }
+	@Override public void enterWS(BinaryParser.WSContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitXOR(BinaryParser.XORContext ctx) { }
+	@Override public void exitWS(BinaryParser.WSContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIMPLICATION(BinaryParser.IMPLICATIONContext ctx) { }
+	@Override public void enterEOF(BinaryParser.EOFContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIMPLICATION(BinaryParser.IMPLICATIONContext ctx) { }
+	@Override public void exitEOF(BinaryParser.EOFContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterINTEGER(BinaryParser.INTEGERContext ctx) { }
+	@Override public void enterInt(BinaryParser.IntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitINTEGER(BinaryParser.INTEGERContext ctx) { }
+	@Override public void exitInt(BinaryParser.IntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEqualBlock(BinaryParser.EqualBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEqualBlock(BinaryParser.EqualBlockContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

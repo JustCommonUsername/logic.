@@ -18,6 +18,7 @@ import com.example.fragmentsdrawer.R;
 import com.example.fragmentsdrawer.core.IllegalLogicEquationException;
 import com.example.fragmentsdrawer.models.CalculatorViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<CalculatorEditorViewAdapter.EditorViewHolder> {
@@ -65,7 +66,6 @@ public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<Calculator
     }
 
     public void add(char value, int focusedIndex) {
-        viewModel.getCurrentEquation().setValue(null);
         mValuesList.add(focusedIndex + 1, value);
         addedChildIndex = focusedIndex + 1;
 
@@ -76,51 +76,55 @@ public class CalculatorEditorViewAdapter extends RecyclerView.Adapter<Calculator
         notifyDataSetChanged();
     }
 
-    public void delete(char value, int index) throws IllegalLogicEquationException {
+    public void delete(char value, int index) {
         if (index > 0 && index < mValuesList.size()) {
             mValuesList.remove(index);
-            int toFocus = index - 1;
+            notifyItemRemoved(index);
 
-            if (value == ')') {
-                for (; index >= 0; index--) {
-                    if (mValuesList.get(index) == '(') {
-                        mValuesList.remove(index);
-                        toFocus--;
-                    }
-                    else if (index == 0)
-                        throw new IllegalLogicEquationException();
+            int toFocus = --index;
+
+            if (value == ')')
+            {
+                do {
+                    index = mValuesList.get(index) != ')' ? --index : -1;
+                } while (index > 0 && mValuesList.get(index) != '(');
+
+                if (index >= 0) {
+                    mValuesList.remove(index);
+                    notifyItemRemoved(index);
                 }
-            } else if (value == '(') {
-                for (int i = index; i < mValuesList.size(); i++) {
-                    if (mValuesList.get(i) == ')')
-                        mValuesList.remove(i);
-                    else if (i + 1 == mValuesList.size())
-                        throw new IllegalLogicEquationException();
+            }
+            else if (value == '(')
+            {
+                do {
+                    try {
+                        index = mValuesList.get(++index) != '(' ? index : mValuesList.size();
+                    } catch (IndexOutOfBoundsException e) {
+                        index = mValuesList.size();
+                    }
+                } while (index < mValuesList.size() && mValuesList.get(index) != ')');
+
+                if (index < mValuesList.size()) {
+                    mValuesList.remove(index);
+                    notifyItemRemoved(index);
                 }
             }
 
             pendingFocusIndex.setValue(toFocus);
-            notifyDataSetChanged();
         }
     }
 
     public String fields() {
         StringBuffer result = new StringBuffer();
-        for (int i = 0; i < mValuesList.size(); i++) {
-            result.append(Character.toString(mValuesList.get(i)));
+        for (char character: mValuesList) {
+            if (character != '\0')
+                result.append(character);
         }
         return result.toString();
     }
 
-    public void onResume(String input) {
-        if (mValuesList != null) {
-            if (input != null)
-                for (char ch : input.toCharArray())
-                    mValuesList.add(ch);
-            else
-                mValuesList.add('\0');
-        }
-
+    public void onResume(ArrayList<Character> input) {
+        mValuesList = input;
         notifyDataSetChanged();
     }
 

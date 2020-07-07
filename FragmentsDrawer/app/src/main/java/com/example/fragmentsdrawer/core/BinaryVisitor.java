@@ -1,5 +1,7 @@
 // Generated from C:/TemporaryProjects/Temporary folder, Tasks to test, Android/Tasks_to_test_on_08-02-2020/FragmentsDrawer/app/src/main/java/com/example/fragmentsdrawer/core\Binary.g4 by ANTLR 4.8
-package com.example.fragmentsdrawer.core;
+
+    package com.example.fragmentsdrawer.core;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -11,73 +13,80 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface BinaryVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by the {@code NOT}
+	 * Visit a parse tree produced by the {@code ImplBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNOT(BinaryParser.NOTContext ctx);
+	T visitImplBlock(BinaryParser.ImplBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code OR}
+	 * Visit a parse tree produced by the {@code OrBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOR(BinaryParser.ORContext ctx);
+	T visitOrBlock(BinaryParser.OrBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code VARIABLE}
+	 * Visit a parse tree produced by the {@code AndBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVARIABLE(BinaryParser.VARIABLEContext ctx);
+	T visitAndBlock(BinaryParser.AndBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code WHITESPACE}
+	 * Visit a parse tree produced by the {@code ParExpr}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWHITESPACE(BinaryParser.WHITESPACEContext ctx);
+	T visitParExpr(BinaryParser.ParExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code EQUAL}
+	 * Visit a parse tree produced by the {@code Var}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEQUAL(BinaryParser.EQUALContext ctx);
+	T visitVar(BinaryParser.VarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AND}
+	 * Visit a parse tree produced by the {@code XorBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAND(BinaryParser.ANDContext ctx);
+	T visitXorBlock(BinaryParser.XorBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PARENTHESIS}
+	 * Visit a parse tree produced by the {@code NotBlock}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPARENTHESIS(BinaryParser.PARENTHESISContext ctx);
+	T visitNotBlock(BinaryParser.NotBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code XOR}
+	 * Visit a parse tree produced by the {@code WS}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitXOR(BinaryParser.XORContext ctx);
+	T visitWS(BinaryParser.WSContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code IMPLICATION}
+	 * Visit a parse tree produced by the {@code EOF}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIMPLICATION(BinaryParser.IMPLICATIONContext ctx);
+	T visitEOF(BinaryParser.EOFContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code INTEGER}
+	 * Visit a parse tree produced by the {@code Int}
 	 * labeled alternative in {@link BinaryParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitINTEGER(BinaryParser.INTEGERContext ctx);
+	T visitInt(BinaryParser.IntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EqualBlock}
+	 * labeled alternative in {@link BinaryParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualBlock(BinaryParser.EqualBlockContext ctx);
 }
