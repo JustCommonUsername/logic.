@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="changed"
             type="String" />
@@ -14,12 +15,24 @@
         <variable
             name="description"
             type="String" />
+        <variable
+            name="changeType"
+            type="String" />
+        <variable
+            name="isDetailed"
+            type="androidx.lifecycle.LiveData&lt;Boolean>" />
+        <variable
+            name="isResult"
+            type="Boolean" />
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/solution_main_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="10dp">
+        setSolutionCardElevation="@{isDetailed}"
+        app:cardCornerRadius="0dp"
+        tools:translationZ="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,14 +41,16 @@
             android:paddingBottom="20dp"
             android:paddingStart="15dp"
             android:paddingEnd="25dp"
-            android:background="@drawable/border_solution_card">
+            setLayoutItemBackground="@{isResult}"
+            tools:background="@drawable/border_solution_card">
 
             <HorizontalScrollView
-                android:layout_toLeftOf="@id/solution_wide_action"
+                android:layout_toStartOf="@id/solution_wide_action"
                 android:layout_alignParentStart="true"
                 android:id="@+id/part_manual_scroll"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                visibilityOfSolutionItems="@{isDetailed}">
 
                 <TextView
                     android:id="@+id/part_manual_string"
@@ -54,18 +69,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="20dp"
-                android:paddingStart="20dp"
+                android:layout_marginStart="10dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
                 android:text="@{description}"
-                tools:text="В данном случае было необходимо упростить значение, находящееся в скобках, а далее использовать алгоритм Квайна-МакКлански." />
+                android:background="@drawable/border_solution_part"
+                tools:text="@string/solution_wide_description"
+                visibilityOfSolutionItems="@{isDetailed}" />
+
+            <ImageView
+                android:id="@+id/solution_arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/part_wide_description"
+                android:layout_marginTop="-9dp"
+                android:layout_marginStart="1.5dp"
+                android:src="@drawable/ic_solution_arrow_24dp"
+                visibilityOfSolutionItems="@{isDetailed}"/>
 
             <HorizontalScrollView
                 android:layout_below="@id/part_wide_description"
                 android:layout_toLeftOf="@id/solution_wide_action"
                 android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
                 android:id="@+id/part_changed_scroll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -75,10 +104,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="@{description}"
+                    android:text="@{changed}"
+                    setManualFunctionStyle="@{isResult}"
+                    android:textColor="@{isResult ? @color/secondaryTextColor : @color/primaryTextColor, default=@color/primaryTextColor}"
                     tools:text="A+B=A+!B" />
 
             </HorizontalScrollView>
+
+            <TextView
+                android:layout_below="@id/part_changed_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{changeType}"
+                android:layout_marginTop="3dp"
+                android:textSize="12sp"
+                android:textColor="@{isResult ? @color/secondaryTextColor : @color/secondaryColor, default=@color/secondaryColor}"
+                android:id="@+id/part_changed_hint"
+                tools:text="Упростить значение в скобках"
+                tools:textColor="@color/secondaryColor"
+                visibilityOfSolutionItems="@{isDetailed}" />
 
             <ImageButton
                 android:id="@+id/solution_wide_action"
@@ -87,7 +131,19 @@
                 android:src="@drawable/ic_solution_part_close_detailed_24dp"
                 android:background="@null"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                visibilityOfSolutionItems="@{isDetailed}"
+                visibilityOfSolutionButton="@{isResult}"/>
+
+            <ImageButton
+                android:id="@+id/solution_brief_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/solutions_part_action_more_24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                visibilityOfSolutionItems="@{isDetailed}" />
 
         </RelativeLayout>
 

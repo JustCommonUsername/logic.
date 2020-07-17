@@ -18,7 +18,7 @@
             android:id="@+id/toolbar_collapsing_solution"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll|snap"
             app:collapsedTitleTextAppearance="@style/TitleAppearance"
             app:expandedTitleMarginStart="20dp"
             app:collapsedTitleGravity="center"
@@ -46,8 +46,18 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/solution_parts_card"
+        tools:listitem="@layout/solution_parts_card_detailed"
         tools:itemCount="5"
         app:layout_anchorGravity="bottom"/>
+
+    <!-- Adding value "android:elevation='-1dp'" in order to solve elevation problems in future and not make View visible now -->
+    <View
+        android:id="@+id/solution_main_tint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dd000000"
+        android:visibility="gone"
+        android:elevation="-1dp"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

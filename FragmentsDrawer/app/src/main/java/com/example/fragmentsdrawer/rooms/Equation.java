@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.example.fragmentsdrawer.util.Converters;
+import com.example.fragmentsdrawer.util.Step;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class Equation {
     @NonNull
     private String howChanged;
 
-    private ArrayList<Pair<String, String>> steps;
+    private ArrayList<Step> steps;
 
     private String CNF;
 
@@ -64,7 +65,7 @@ public class Equation {
         return DNF;
     }
 
-    public ArrayList<Pair<String, String>> getSteps() {
+    public ArrayList<Step> getSteps() {
         return steps;
     }
 
@@ -76,7 +77,7 @@ public class Equation {
         return date;
     }
 
-    public Equation(long date, @NonNull String function, @NonNull String type, @NonNull String howChanged, ArrayList<Pair<String, String>> steps,
+    public Equation(long date, @NonNull String function, @NonNull String type, @NonNull String howChanged, ArrayList<Step> steps,
                     String CNF, String DNF, @NonNull String reducedFunction) {
         this.date = date;
         this.function = function;

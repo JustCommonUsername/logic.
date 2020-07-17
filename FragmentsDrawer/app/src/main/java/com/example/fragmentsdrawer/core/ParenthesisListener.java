@@ -4,21 +4,15 @@ import android.util.Log;
 import android.util.Pair;
 
 import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
 import org.logicng.io.parsers.ParserException;
 import org.logicng.io.parsers.PropositionalParser;
 import org.logicng.transformations.qmc.QuineMcCluskeyAlgorithm;
 
-import java.util.HashSet;
-import java.util.Stack;
+public class ParenthesisListener extends LogicBaseListener {
 
-public class ParenthesisListener extends BinaryBaseListener {
-
-    private int scopes = 0;
     private boolean changed = false;
     private Pair<String, String> change = null;
 
@@ -27,8 +21,8 @@ public class ParenthesisListener extends BinaryBaseListener {
     }
 
     @Override
-    public void exitParExpr(BinaryParser.ParExprContext ctx) {
-        /* if (!changed) {
+    public void exitParenthesis(Logic.ParenthesisContext ctx) {
+        if (!changed) {
             final CharStream input = ctx.start.getInputStream();
 
             final int a = ctx.start.getStartIndex();
@@ -60,9 +54,7 @@ public class ParenthesisListener extends BinaryBaseListener {
                     changed = true;
                 }
             }
-        } */
-        // Debugging the Intervals
-        Log.d("Parenthesis out stream", ctx.start.getInputStream().getText(new Interval(ctx.start.getStartIndex(), ctx.stop.getStopIndex())));
+        }
     }
 
 }

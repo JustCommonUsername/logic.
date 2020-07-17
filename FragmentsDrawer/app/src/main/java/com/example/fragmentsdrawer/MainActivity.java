@@ -166,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onSupportNavigateUp() {
+        if (navController.getCurrentDestination().getId() == R.id.nav_home_solution)
+            return false;
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 
@@ -236,11 +238,8 @@ public class MainActivity extends AppCompatActivity implements
                 layout.setExpandedTitleColor(getResources().getColor(R.color.primaryColor));
                 fab.setVisibility(View.VISIBLE);
 
-                try {
-                    drawer.setEnabled(false);
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
+                toolbar.setNavigationIcon(null);
+
                 break;
             default:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);

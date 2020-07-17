@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="changed"
+            type="String" />
+        <variable
+            name="typeOfChange"
+            type="String" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="25dp"
+        android:background="@color/secondaryColor">
+
+        <HorizontalScrollView
+            android:id="@+id/part_changed_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/part_changed_string"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@{changed}"
+                android:textColor="@color/secondaryTextColor"
+                android:textStyle="bold"
+                tools:text="A+B=A+!B" />
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_below="@id/part_changed_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{typeOfChange}"
+            android:layout_marginTop="3dp"
+            android:textSize="12sp"
+            android:textColor="@color/secondaryTextColor"
+            android:id="@+id/part_changed_hint"
+            tools:text="Полученная функция" />
+
+    </RelativeLayout>
+
+
+</layout>

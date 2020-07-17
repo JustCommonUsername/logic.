@@ -1,9 +1,15 @@
 package com.example.fragmentsdrawer.util;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
+import androidx.cardview.widget.CardView;
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 
@@ -17,6 +23,53 @@ import java.util.List;
 import kotlin.jvm.JvmStatic;
 
 public class BindingAdapters {
+
+    @JvmStatic
+    @BindingAdapter("setSolutionCardElevation")
+    public static void setSolutionCardElevation(CardView card, Boolean isDetailed) {
+        Resources resources = card.getContext().getResources();
+        card.setCardElevation(
+                isDetailed
+                ? resources.getDimension(R.dimen.solution_card_elevation_detailed_version)
+                : resources.getDimension(R.dimen.solution_card_elevation_manual_version)
+        );
+    }
+
+    @JvmStatic
+    @BindingAdapter("setLayoutItemBackground")
+    public static void setLayoutItemBackground(ViewGroup viewGroup, Boolean isResult) {
+        Context context = viewGroup.getContext();
+        viewGroup.setBackground(!isResult ? context.getDrawable(R.drawable.border_solution_card) : context.getDrawable(R.drawable.background_result_card));
+    }
+
+    @JvmStatic
+    @BindingAdapter("setManualFunctionStyle")
+    public static void setManualFunctionStyle(TextView textView, Boolean isResult) {
+        textView.setTypeface(textView.getTypeface(), isResult ? Typeface.BOLD : Typeface.NORMAL);
+    }
+
+    @JvmStatic
+    @BindingAdapter("visibilityOfSolutionButton")
+    public static void visibilityOfSolutionButton(ImageButton button, Boolean isResult) {
+        button.setVisibility(isResult ? View.GONE : View.VISIBLE);
+    }
+
+    @JvmStatic
+    @BindingAdapter("visibilityOfSolutionItems")
+    public static void visibilityOfSolutionItems(View view, Boolean isDetailed) {
+        switch (view.getId()) {
+            case R.id.part_manual_scroll:
+            case R.id.part_wide_description:
+            case R.id.solution_arrow_image:
+            case R.id.solution_wide_action:
+                view.setVisibility(isDetailed ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.part_changed_hint:
+            case R.id.solution_brief_action:
+                view.setVisibility(isDetailed ? View.GONE : View.VISIBLE);
+                break;
+        }
+    }
 
     @JvmStatic
     @BindingAdapter("hideIfZero")

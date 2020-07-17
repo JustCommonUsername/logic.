@@ -38,4 +38,12 @@
     <string name="send_request_status">Секундочку...</string>
     <string name="home_history_snackbar_question_text">Возможно, нужно восстановить?</string>
     <string name="solution_item_description_text_whole">В данном случае, необходимо было использовать алгоритм Квайна-МакКласки.</string>
+    <string name="solution_manual_description">Введенная функция</string>
+    <string name="solution_item_name_function_card">Функция</string>
+    <string name="solution_item_name_cdnf_card">Совершенная ДНФ</string>
+    <string name="solution_item_name_ccnf_card">Совершенная КНФ</string>
+    <string name="solution_wide_description">В данном случае было необходимо упростить значение, находящееся в скобках, а далее использовать алгоритм Квайна-МакКлански.</string>
+    <string name="solution_type_of_change_manual">Введенная Вами функция</string>
+    <string name="solution_type_of_change_rest_brackets">Упрощаем выражение в скобках функции</string>
+    <string name="solution_type_of_change_result">Упрощенная эквивалентная функция</string>
 </resources>

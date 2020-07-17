@@ -6,9 +6,12 @@ import android.util.Pair;
 
 import com.example.fragmentsdrawer.MainActivity;
 import com.example.fragmentsdrawer.rooms.Equation;
+import com.example.fragmentsdrawer.util.Step;
+import com.example.fragmentsdrawer.util.StepInterval;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
@@ -17,24 +20,26 @@ import org.logicng.io.parsers.PropositionalParser;
 import org.logicng.transformations.qmc.QuineMcCluskeyAlgorithm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class EquationFactory {
 
-    private static ArrayList<Pair<String, String>> steps = new ArrayList<>(5);
-    private static Equation previous;
+    private static ArrayList<Step> steps = new ArrayList<>(5);
 
     public static synchronized Equation construct(String input) throws IllegalLogicEquationException {
         // TODO: Implement construction
         if (input != null && !TextUtils.isEmpty(input)) {
             // TODO: Implement usage
             // Trivial simplification algorithm
+            String simplified;
+
             try {
-                String simplified = printTreeNodes(input);
+                simplified = simplify(input);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                throw new IllegalLogicEquationException();
             }
 
             // Implementing equation simplification
@@ -43,7 +48,7 @@ public class EquationFactory {
             final Formula formula;
 
             try {
-                formula = parser.parse(EquationString.prepareFunctionTo(input));
+                formula = parser.parse(EquationString.prepareFunctionTo(simplified));
             } catch (ParserException e) {
                 /* Handling wrong equation situation.
                 In case an equation is wrong, PropositionParser object will throw ParserException.
@@ -56,7 +61,7 @@ public class EquationFactory {
             // First step of building an answer - RPN
             ReversePolishNotation source = ReversePolishNotation.getRPNObject(EquationString.prepareFunctionFrom(result.toString()));
 
-            return (previous = new Equation(
+            return new Equation(
                     System.currentTimeMillis(),
                     input,
                     "Function",
@@ -65,57 +70,51 @@ public class EquationFactory {
                     source.CCNF,
                     source.CDNF,
                     EquationString.prepareFunctionFrom(result.toString())
-            ));
+            );
         }
         return null;
     }
-
-    /* TODO: Needed for testing parsing method, implement */
-
     // Method below is needed for trivial function simplification
-    private static String printTreeNodes(String input) {
+    private static String simplify(String input) {
         steps.clear();
         boolean notChanged = false;
         Pair<String, String> change;
-
-        /** <b>Needed for debugging</b> **/ int previousLengthSteps = 0;
 
         // Cycles through changing input, while there are changes
         while (!notChanged) {
             // Building lexer, parser and tree for walking the equation
             ANTLRInputStream stream = new ANTLRInputStream(input);
-            BinaryLexer lexer = new BinaryLexer(stream);
+            LogicTokens lexer = new LogicTokens(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            BinaryParser parser = new BinaryParser(tokens);
-            parser.setBuildParseTree(true);
+            Logic parser = new Logic(tokens);
+            ParseTree tree = parser.expr();
 
             // Initializing walking algorithm
             ParenthesisListener listener = new ParenthesisListener();
-            ParseTreeWalker.DEFAULT.walk(listener, parser.expr());
+            ParseTreeWalker.DEFAULT.walk(listener, tree);
 
             // Getting a change from listener class and proceeding it
-            if ((change = listener.getChange()) != null)
-                steps.add(change);
+            if ((change = listener.getChange()) != null) {
+                final int manA = input.indexOf(change.first), manB = input.lastIndexOf(change.first);
+
+                // Changing the string, which is being simplified, in order to build new parse tree and walk it
+                // The part, which was simplified, and simplified main companion are written in Pair<> object
+                String simplification = input.replace(/* Changed part */ change.first, /* Its simplified form */ change.second);
+
+                final int changedA = simplification.indexOf(change.second), changedB = simplification.lastIndexOf(change.second);
+
+                if (!simplification.equals(input)) {
+                    // Creating step variable for a list
+                    final Step step = new Step(new Pair<>(input, simplification), new StepInterval(manA, manB), new StepInterval(changedA, changedB));
+                    // Adding changed string 'simplification' as a step of simplifying an equation
+                    steps.add(step);
+                    // Changing value of input in order to cycle further
+                    input = simplification;
+                }
+            }
             // If changes weren't found, variable 'notChanged' changes its value so as to stop the cycle
             else
                 notChanged = true;
-
-            // Changing the string, which is being simplified, in order to build new parse tree and walk it
-            // The part, which was simplified, and simplified main companion are written in Pair<> object
-            input = change != null ? input.replace(/* Changed part */ change.first, /* Its simplified form */ change.second) : input;
-
-            /**<b>Debugging the steps</b>**/
-
-            StringBuffer stepsBuffer = new StringBuffer();
-
-            for (Pair step: steps)
-                if (step != null)
-                    stepsBuffer.append("Manual: ").append(step.first).append(", changed: ").append(step.second).append(";\n");
-
-            Log.d("BINARY_PARSER steps", stepsBuffer.toString().length() != 0 && previousLengthSteps != steps.size() ? stepsBuffer.toString() : "No changes");
-            Log.d("BINARY_PARSER steps", "Input after change -> " + input);
-
-            previousLengthSteps = steps.size();
         }
 
         return input;

@@ -27,6 +27,14 @@
     <string name="more">More</string>
     <string name="next">Next</string>
     <string name="solution_title">Solution</string>
+    <string name="solution_manual_description">Your function</string>
+    <string name="solution_item_name_function_card">Function</string>
+    <string name="solution_item_name_cdnf_card">CDNF</string>
+    <string name="solution_item_name_ccnf_card">CCNF</string>
+    <string name="solution_wide_description">To simplify given expression, we used Quine-McCluskey algorithm, using it in the parenthesis.</string>
+    <string name="solution_type_of_change_manual">Given function</string>
+    <string name="solution_type_of_change_rest_brackets">Simplifying expression in parenthesis</string>
+    <string name="solution_type_of_change_result">Simplified equivalent expression</string>
 
     <string name="about_us_app_description">logic. is a mobile boolean algebra calculator. Based on Jetpack Library, it uses LiveData, Data Binding and MVVM pattern to robust your experience. In it\'s core lie boolean algorithms</string>
     <string name="about_us_contacts_description_full">Project is fully open-source. I will be happy to get any remarks and am ready to provide any information needed.</string>

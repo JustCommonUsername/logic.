@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:id="@+id/solution_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/solution_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_marginBottom="20dp"
     card_view:cardCornerRadius="20dp"
     card_view:contentPadding="1dp"
     card_view:cardElevation="15dp">
@@ -38,59 +38,11 @@
             android:textStyle="bold"
             android:text="@string/solution_title" />
 
-        <HorizontalScrollView
-            android:layout_below="@id/solution_item_name"
-            android:id="@+id/solution_manual_scroll"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/solution_manual_string"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/secondaryColor"
-                android:textFontWeight="900"
-                tools:text="(A+A+B)=A+!B" />
-
-        </HorizontalScrollView>
-
-        <TextView
-            android:layout_below="@id/solution_manual_scroll"
-            android:id="@+id/solution_wide_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="25dp"
-            android:paddingStart="15dp"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp"
-            android:text="@string/solution_item_description_text_whole"
-            android:background="@drawable/border_solution_item"
-            tools:text="В данном случае было необходимо использовать алгоритм Квайна-МакКлански."
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/solution_arrow_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/solution_wide_description"
-            android:layout_marginStart="16.5dp"
-            android:layout_marginTop="-10dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_solution_arrow_24dp"
-            android:visibility="gone"/>
-
         <RelativeLayout
             android:id="@+id/solution_item_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/solution_arrow_image"
+            android:layout_below="@id/solution_item_name"
             android:layout_marginBottom="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
@@ -113,13 +65,6 @@
             </HorizontalScrollView>
 
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/solution_action_next"
-            android:text="@string/next"
-            style="@style/TextFloatingButton"
-            android:visibility="gone"
-            tools:visibility="visible"/>
 
     </RelativeLayout>
 

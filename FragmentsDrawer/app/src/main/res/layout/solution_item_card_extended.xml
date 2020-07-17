@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/solution_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    card_view:cardCornerRadius="20dp"
+    card_view:contentPadding="1dp"
+    card_view:cardElevation="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/solution_item_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            android:textSize="9sp"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"
+            android:text="@string/solution_steps" />
+
+        <TextView
+            android:id="@+id/solution_item_name"
+            android:layout_below="@id/solution_item_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/solution_title" />
+
+        <HorizontalScrollView
+            android:layout_below="@id/solution_item_name"
+            android:id="@+id/solution_manual_scroll"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/solution_manual_string"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/secondaryColor"
+                android:textFontWeight="900"
+                tools:text="(A+A+B)=A+!B"
+                android:transitionName="solution_manual_shared" />
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_below="@id/solution_manual_scroll"
+            android:id="@+id/solution_wide_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="25dp"
+            android:paddingStart="15dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp"
+            android:text="@string/solution_item_description_text_whole"
+            android:background="@drawable/border_solution_item"
+            tools:text="В данном случае было необходимо использовать алгоритм Квайна-МакКлански."
+            tools:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/solution_arrow_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/solution_wide_description"
+            android:layout_marginStart="16.5dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_solution_arrow_24dp"
+            tools:visibility="visible"/>
+
+        <RelativeLayout
+            android:id="@+id/solution_item_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/solution_arrow_image"
+            android:layout_marginBottom="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/solutions_item_border">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/solution_item_verbose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/primaryTextColor"
+                    android:text="Check"/>
+
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/solution_action_next"
+            android:text="@string/next"
+            style="@style/TextFloatingButton"
+            tools:visibility="visible"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

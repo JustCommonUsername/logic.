@@ -8,4 +8,7 @@
     <dimen name="tall_toolbar_height">112dp</dimen>
     <dimen name="navigation_view_padding">10dp</dimen>
     <dimen name="item_element_curve">7dp</dimen>
+
+    <dimen name="solution_card_elevation_manual_version">0dp</dimen>
+    <dimen name="solution_card_elevation_detailed_version">10dp</dimen>
 </resources>

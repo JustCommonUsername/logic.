@@ -31,6 +31,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,7 @@ import com.example.fragmentsdrawer.adapters.CalculatorEditorViewAdapter;
 import com.example.fragmentsdrawer.core.EquationFactory;
 import com.example.fragmentsdrawer.core.IllegalLogicEquationException;
 import com.example.fragmentsdrawer.databinding.HomeCalculatorBinding;
+import com.example.fragmentsdrawer.databinding.HomeCalculatorBindingImpl;
 import com.example.fragmentsdrawer.models.CalculatorViewModel;
 import com.example.fragmentsdrawer.rooms.Equation;
 import com.example.fragmentsdrawer.services.KeyboardInputService;
@@ -133,7 +135,7 @@ public class CalculatorFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    controller.navigate(R.id.nav_home_solution);
+                    controller.navigate(R.id.action_nav_home_to_nav_home_solution);
                     if (viewModel.getSolvedEquation() != null)
                         viewModel.insert(viewModel.getSolvedEquation());
                 } catch (NullPointerException e) {

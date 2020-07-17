@@ -138,7 +138,7 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryViewAdapter.
                     // ViewModel changes one of its values to perform showing the results
                     viewModel.setSolvedEquation(mCurrentEquation);
                     // Navigating to solutions fragment
-                    controller.navigate(R.id.nav_home_solution);
+                    controller.navigate(R.id.action_nav_home_to_nav_home_solution);
                 }
             });
         }

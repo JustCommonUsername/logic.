@@ -1,9 +1,14 @@
 package com.example.fragmentsdrawer.ui.home.solutions;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +17,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.fragmentsdrawer.R;
+import com.example.fragmentsdrawer.SolutionActivity;
+import com.example.fragmentsdrawer.adapters.SolutionCardsAdapter;
+import com.example.fragmentsdrawer.adapters.SolutionPartsAdapter;
 import com.example.fragmentsdrawer.models.CalculatorViewModel;
+import com.example.fragmentsdrawer.util.SolutionInfo;
+
+import java.util.ArrayList;
 
 public class SolutionFragment extends Fragment {
 
-    private CardView function, CDNF, CCNF;
     private CalculatorViewModel viewModel;
+    private SolutionInfo[] solutions;
+    private ListView container;
+
+    public static final String VIEW_SHARED_NAME = "sharedName";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -27,17 +41,7 @@ public class SolutionFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        function = view.findViewById(R.id.function);
-        CCNF = view.findViewById(R.id.ccnf);
-        CDNF = view.findViewById(R.id.cdnf);
-
-        function.findViewById(R.id.solution_manual_scroll).setVisibility(View.VISIBLE);
-        function.findViewById(R.id.solution_wide_description).setVisibility(View.VISIBLE);
-        function.findViewById(R.id.solution_arrow_image).setVisibility(View.VISIBLE);
-
-        ((TextView)function.findViewById(R.id.solution_item_name)).setText("Function");
-        ((TextView)CCNF.findViewById(R.id.solution_item_name)).setText("CCNF");
-        ((TextView)CDNF.findViewById(R.id.solution_item_name)).setText("CDNF");
+        container = view.findViewById(R.id.solution_items_list_container);
 
         try {
             viewModel = ViewModelProviders.of(getActivity()).get(CalculatorViewModel.class);
@@ -45,21 +49,39 @@ public class SolutionFragment extends Fragment {
             e.printStackTrace();
         }
 
-        TextView answer = function.findViewById(R.id.solution_item_verbose);
-        TextView ccnf = CCNF.findViewById(R.id.solution_item_verbose);
-        TextView cdnf = CDNF.findViewById(R.id.solution_item_verbose);
-        TextView manual = function.findViewById(R.id.solution_manual_string);
+        solutions = new SolutionInfo[] {
+                new SolutionInfo(getResources().getString(R.string.solution_item_name_cdnf_card), viewModel.getSolvedEquation().getDNF()),
+                new SolutionInfo(getResources().getString(R.string.solution_item_name_ccnf_card), viewModel.getSolvedEquation().getCNF())
+        };
 
-        try {
-            answer.setText(viewModel.getSolvedEquation().getReducedFunction());
-            ccnf.setText(viewModel.getSolvedEquation().getCNF());
-            cdnf.setText(viewModel.getSolvedEquation().getDNF());
-            manual.setText(viewModel.getSolvedEquation().getFunction());
-        } catch (NullPointerException e) {
-            answer.setText("Re-enter input");
-            ccnf.setText("Re-enter input");
-            cdnf.setText("Re-enter input");
-        }
+        SolutionCardsAdapter adapter = new SolutionCardsAdapter(getContext(), new ArrayList<SolutionInfo>());
+
+        adapter.addAll(solutions);
+
+        CardView header = (CardView) getLayoutInflater().inflate(R.layout.solution_item_card_extended, container, false);
+
+        container.setAdapter(adapter);
+        container.addHeaderView(header);
+
+        final TextView name = header.findViewById(R.id.solution_item_name);
+        final TextView manual = header.findViewById(R.id.solution_manual_string);
+        final TextView function = header.findViewById(R.id.solution_item_verbose);
+        final Button action = header.findViewById(R.id.solution_action_next);
+
+        name.setText(getResources().getString(R.string.solution_item_name_function_card));
+        manual.setText(viewModel.getSolvedEquation().getFunction());
+        function.setText(viewModel.getSolvedEquation().getReducedFunction());
+
+        action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SolutionActivity.class);
+                i.putExtra(VIEW_SHARED_NAME, "solution_manual_shared");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), manual, "solution_manual_shared");
+
+                startActivity(i, options.toBundle());
+            }
+        });
     }
 
 }

@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class Converters {
 
     @TypeConverter
-    public static String fromArrayList(ArrayList<Pair<String, String>> arrayList) {
+    public static String fromArrayList(ArrayList<Step> arrayList) {
         return new Gson().toJson(arrayList);
     }
 
     @TypeConverter
-    public static ArrayList<Pair<String, String>> fromString(String json) {
-        Type listType =  new TypeToken<ArrayList<Pair<String, String>>>(){}.getType();
+    public static ArrayList<Step> fromString(String json) {
+        Type listType =  new TypeToken<ArrayList<Step>>(){}.getType();
         return new Gson().fromJson(json, listType);
     }
 
