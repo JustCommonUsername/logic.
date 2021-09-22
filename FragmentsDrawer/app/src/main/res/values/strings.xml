@@ -23,6 +23,8 @@
 
     <string name="solution_item_description_text_whole">In our particular case, we had to use Quine-McCluskey algorithm</string>
 
+    <string name="home_calculator_snackbar_warning">Unfortunately, you haven\'t entered equation yet</string>
+
     <string name="solution_steps">Solution Steps</string>
     <string name="more">More</string>
     <string name="next">Next</string>
@@ -42,18 +44,35 @@
     <string name="about_us_contacts">Contacts:</string>
 
     <string name="alert_situation_message">Looks like there is a mistake in your equation... We recommend checking it once again</string>
+    <string name="home_calculator_greeting">Start entering your function here...</string>
 
     <string name="home_snackbar_alert">Illegal function. Please, re-enter your input</string>
 
-    <string name="send_request_greeting">Oh no!.. What has happened?</string>
+    <string name="send_request_greeting">Oh no!\nWhat has happened?</string>
     <string name="send_request_broad_input_hint">Please, describe the problem</string>
     <string name="send_request_broad_greeting_explanation">Describe what went wrong and what were you doing at that moment</string>
-    <string name="send_request_choosing_answers_hint">Occurence</string>
+    <string name="send_request_choosing_answers_hint">Occurrence</string>
     <string name="send_request_choosing_answers_explanation">Please, choose a place, where did the problem occur</string>
     <string name="send_request_action_button_text">Send</string>
     <string name="send_request_email_form_explanation">Enter your e-mail</string>
     <string name="send_request_email_form_hint">Please, enter your relevant e-mail address, so that we could contact you and clarify the problem</string>
     <string name="send_request_status">One moment, please...</string>
+    <string name="send_request_error_empty_answer">All text fields should be full</string>
+    <string name="send_request_error_email_problem">Invalid e-mail address</string>
+
+    <string name="guide_instruction_config_of_keyboard">Before we start, please enable custom keyboard in your Settings: navigate to \"Languages and input\" and open \"Virtual keyboard\" tab, then enable \"logic.\"</string>
+    <string name="guide_instruction_beginning_of_work">After configuring the keyboard, you can begin your work. Tap on \"Enter your function\" part and start entering your function, using custom keyboard</string>
+    <string name="guide_instruction_getting_answer">After you entered your function, press the done button. Then press the \"Next\" button to open special page with answers</string>
+    <string name="guide_instruction_getting_result_steps">In the Solution page, press another \"Next\" button to view steps of simplification</string>
+    <string name="guide_instruction_getting_equation_history">To view functions, which you have entered earlier, open History page. To get info about their solution, simply tap on the needed function</string>
+    <string name="guide_instruction_extra_contact_information">In order to get more information about the app, open About us page</string>
+    <string name="guide_instruction_sending_request_explanation">If you (very unfortunately) have encountered a bug or a crash, don\'t hesitate to contact us via Problem page</string>
+    <string name="guide_instruction_the_greeting_words">Welcome!</string>
+    <string name="guide_pager_item_content_description">Showcase of usage of the app</string>
+    <string name="guide_toolbar_action">Done</string>
+    <string name="guide_action_next">Next</string>
+    <string name="guide_action_done">Done</string>
+    <string name="guide_view_explanation">Tutorial</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

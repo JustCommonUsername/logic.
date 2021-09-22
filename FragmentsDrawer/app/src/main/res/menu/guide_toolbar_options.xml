@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/guide_done_action"
+        android:title="@string/guide_toolbar_action"
+        android:contentDescription="@string/guide_toolbar_action"
+        app:showAsAction="always" />
+
+</menu>

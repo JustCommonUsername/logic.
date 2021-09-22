@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nav_send_request.RequestFragment"
+    tools:context="app.logic.logic.ui.nav_send_request.RequestFragment"
     android:paddingStart="60dp"
     android:paddingEnd="60dp"
     android:theme="@style/AppThemeMaterial">
@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
                 android:text="🤔"
                 android:textColor="@color/secondaryColor"
                 android:textSize="90sp" />
@@ -38,6 +39,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="true"
                 android:id="@+id/email_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,11 +55,12 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="true"
                 android:id="@+id/broad_answer_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,6 +80,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="true"
                 android:id="@+id/choosing_answer_field"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
@@ -102,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="20dp"
+                android:textAllCaps="false"
                 app:backgroundTint="@color/secondaryColor"
                 app:icon="@drawable/ic_send_black_48dp"
                 app:iconTint="@color/primaryColor"

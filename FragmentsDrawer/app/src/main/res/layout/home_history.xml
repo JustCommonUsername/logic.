@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.fragmentsdrawer.models.CalculatorViewModel" />
+            type="app.logic.logic.models.CalculatorViewModel" />
         <import type="android.view.View" />
     </data>
 

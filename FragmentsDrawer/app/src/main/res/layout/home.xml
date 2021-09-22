@@ -6,16 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.HomeFragment"
+    tools:context="app.logic.logic.ui.home.HomeFragment"
     tools:showIn="@layout/app_bar_main">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabRippleColor="@color/secondaryColor"
-        app:tabIndicatorColor="@color/secondaryColor"/>
+        app:tabIndicatorColor="@color/secondaryColor" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pages"

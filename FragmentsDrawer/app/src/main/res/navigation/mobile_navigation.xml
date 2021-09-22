@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.fragmentsdrawer.ui.home.HomeFragment"
+        android:name="app.logic.logic.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/home" >
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/nav_about_us"
-        android:name="com.example.fragmentsdrawer.ui.nav_about_us.AboutUsFragment"
+        android:name="app.logic.logic.ui.nav_about_us.AboutUsFragment"
         android:label="@string/menu_about_us"
         tools:layout="@layout/about_us">
         <deepLink
@@ -36,13 +36,13 @@
 
     <fragment
         android:id="@+id/nav_request"
-        android:name="com.example.fragmentsdrawer.ui.nav_send_request.RequestFragment"
+        android:name="app.logic.logic.ui.nav_send_request.RequestFragment"
         android:label="@string/menu_send_request"
         tools:layout="@layout/send_request"/>
 
     <fragment
         android:id="@+id/nav_home_solution"
-        android:name="com.example.fragmentsdrawer.ui.home.solutions.SolutionFragment"
+        android:name="app.logic.logic.ui.home.solutions.SolutionFragment"
         android:label="@string/home_solution"
         tools:layout="@layout/solutions_layout_part" />
 

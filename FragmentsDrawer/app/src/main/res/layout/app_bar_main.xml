@@ -8,7 +8,7 @@
         <import type="androidx.lifecycle.LiveData" />
         <variable
             name="destination"
-            type="LiveData&lt;Integer>" />
+            type="LiveData&lt;Integer&gt;" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/content_main_coordinator"
-            tools:context=".MainActivity">
+            tools:context="app.logic.logic.MainActivity">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar_layout"
@@ -37,6 +37,7 @@
                     android:fitsSystemWindows="true"
                     app:collapsedTitleGravity="center_horizontal"
                     app:expandedTitleMarginStart="20dp"
+                    app:expandedTitleMarginTop="?attr/actionBarSize"
                     app:expandedTitleTextAppearance="@style/TitleAppearance.Expanded"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -44,7 +45,8 @@
                         android:id="@+id/toolbar_consistent"
                         setCurrentTheme="@{destination}"
                         android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize" />
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="parallax" />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -52,14 +54,14 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_from_solutions"
-                android:src="@drawable/ic_close_black_16dp"
-                app:fabCustomSize="30dp"
-                app:elevation="9dp"
-                app:pressedTranslationZ="9dp"
-                android:outlineAmbientShadowColor="@color/primaryColor"
-                tools:visibility="visible"
                 style="@style/FloatingActionButton.Solution"
-                showFabSolution="@{destination}" />
+                android:alpha="0"
+                android:outlineAmbientShadowColor="@color/primaryColor"
+                android:src="@drawable/ic_close_black_16dp"
+                android:visibility="visible"
+                app:fabCustomSize="30dp"
+                app:pressedTranslationZ="9dp"
+                tools:alpha="1" />
 
             <include
                 android:layout_width="match_parent"

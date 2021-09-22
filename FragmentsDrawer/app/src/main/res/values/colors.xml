@@ -13,6 +13,8 @@
   <color name="backgroundSolutionColor">#212121</color>
   <color name="secondaryEditorColor">#99303f9f</color>
   <color name="primaryTextColorLighter">#212121</color>
+  <color name="secondaryGuideActionButtonColor">#66001970</color>
+  <color name="secondaryGuideTintColor">#95212121</color>
 
   <color name="primaryOutlineDescription">#b71c1c</color>
 </resources>

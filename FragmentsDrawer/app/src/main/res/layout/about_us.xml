@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/about_us_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nav_about_us.AboutUsFragment"
+    tools:context="app.logic.logic.ui.nav_about_us.AboutUsFragment"
     android:background="@color/backgroundSolutionColor">
 
     <ImageView
@@ -28,6 +30,7 @@
         android:layout_centerHorizontal="true"/>
 
     <TextView
+        android:id="@+id/about_us_description"
         android:textSize="12sp"
         android:layout_below="@id/kernel"
         android:layout_marginTop="50dp"

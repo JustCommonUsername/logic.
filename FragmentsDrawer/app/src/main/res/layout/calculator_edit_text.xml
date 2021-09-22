@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EditText
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/calculator_field"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:maxEms="2"
+    android:autofillHints="@string/home_solution"
+    android:minEms="1"
     android:textCursorDrawable="@drawable/cursor_shape_drawable"
     android:textColorHint="@android:color/darker_gray"
     android:textColor="@color/primaryTextColor"
-    tools:showIn="@layout/home_calculator"
+    tools:backgroundTint="@color/secondaryLightColor"
     tools:background="?android:attr/editTextBackground"
     tools:focusedByDefault="true"
-    tools:text="C"/>
+    tools:hint="Checking hint"
+    tools:textColorHint="@color/secondaryEditorColor" />

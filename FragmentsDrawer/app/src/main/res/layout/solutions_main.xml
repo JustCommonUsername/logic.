@@ -18,10 +18,9 @@
             android:id="@+id/toolbar_collapsing_solution"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|snap"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:collapsedTitleTextAppearance="@style/TitleAppearance"
             app:expandedTitleMarginStart="20dp"
-            app:collapsedTitleGravity="center"
             app:expandedTitleTextAppearance="@style/TitleAppearance.Expanded"
             android:theme="@style/AppTheme.AppBarOverlay"
             android:fitsSystemWindows="true">
@@ -30,8 +29,10 @@
                 android:id="@+id/toolbar_consistent_solution"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
                 tools:textAlignment="center"
-                app:layout_collapseMode="pin"
+                app:layout_collapseMode="parallax"
                 app:titleTextColor="@color/secondaryTextColor"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 

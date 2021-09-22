@@ -1,5 +1,5 @@
-// Generated from C:/TemporaryProjects/Temporary folder, Tasks to test, Android/Tasks_to_test_on_08-02-2020/FragmentsDrawer/app/src/main/java/com/example/fragmentsdrawer/core\Binary.g4 by ANTLR 4.8
-package com.example.fragmentsdrawer;
+// Generated from C:/TemporaryProjects/Temporary folder, Tasks to test, Android/Tasks_to_test_on_08-02-2020/FragmentsDrawer/app/src/main/java/com/logic/fragmentsdrawer/core\Binary.g4 by ANTLR 4.8
+package app.logic.logic;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**

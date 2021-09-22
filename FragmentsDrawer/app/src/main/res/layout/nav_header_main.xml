@@ -24,13 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nav_header_title"
-            android:layout_toRightOf="@id/image_view"
+            android:layout_toEndOf="@id/image_view"
             android:layout_centerVertical="true"
             android:layout_alignBottom="@id/image_view"
             android:textSize="40sp"
             android:textColor="@color/secondaryColor"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_toStartOf="@id/close_drawer_action"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/close_drawer_action"

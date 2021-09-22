@@ -26,7 +26,7 @@
     <string name="about_us_contacts_description_full">Проект полностью open-source. Я буду рад любым правкам и готов предоставить любую необходимую информацию.</string>
     <string name="about_us_contacts">Контакты:</string>
     <string name="home_snackbar_alert">Функция неверна. Пожалуйста, повторите ввод</string>
-    <string name="send_request_greeting">О нет!.. Что у Вас случилось?</string>
+    <string name="send_request_greeting">О нет!\nЧто у Вас случилось?</string>
     <string name="send_request_broad_input_hint">Опишите проблему</string>
     <string name="send_request_broad_greeting_explanation">Пожалуйста, опишите проблему, а также ваши действия в момент ее появления</string>
     <string name="send_request_choosing_answers_hint">Появление</string>
@@ -46,4 +46,21 @@
     <string name="solution_type_of_change_manual">Введенная Вами функция</string>
     <string name="solution_type_of_change_rest_brackets">Упрощаем выражение в скобках функции</string>
     <string name="solution_type_of_change_result">Упрощенная эквивалентная функция</string>
+    <string name="send_request_error_empty_answer">Все текстовые поля должны быть заполнены</string>
+    <string name="send_request_error_email_problem">Неверный адрес электронной почты</string>
+    <string name="home_calculator_snackbar_warning">Вы не ввели функцию</string>
+    <string name="guide_instruction_config_of_keyboard">Перед тем, как мы начнем, пожалуйста, включите спец. клавиатуру: Откройте Настройки, во вкладке \"Язык и ввод\" выберете \"Виртуальная клавиатура\" и включите \"logic.\"</string>
+    <string name="guide_instruction_beginning_of_work">После настройки клавиатуры, Вы можете приступить к работе. Нажмите на \"Введите вашу функцию\" и введите самую безумную логическую функцию,используя клавиатуру - наш калькулятор ее решит</string>
+    <string name="guide_instruction_getting_answer">После ввода функции, нажмите на кнопку Готово в правом нижнем углу. Нажмите на \"Далее\" для подробного разбора</string>
+    <string name="guide_instruction_getting_result_steps">На странице Решений, нажмите еще на одну кнопку - там Вас будет ждать приятный сюрприз (шаги упрощения)</string>
+    <string name="guide_instruction_getting_equation_history">Чтобы посмотреть ранее введенные функции, откройте страницу с Историей. Нажмите на нужную функцию для подробного решения</string>
+    <string name="guide_instruction_extra_contact_information">Чтобы посмотреть более подробную информацию о приложении, откройте страницу \"О нас\"</string>
+    <string name="guide_instruction_sending_request_explanation">"Если Вы (по совершенно неудачному стечению обстоятельств) стали свидетелем ошибки в приложении, Вы можете написать нам об этом через страницу \"Проблема\" "</string>
+    <string name="guide_instruction_the_greeting_words">Добро пожаловать!</string>
+    <string name="home_calculator_greeting">Введите вашу функцию...</string>
+    <string name="guide_toolbar_action">Пропустить</string>
+    <string name="guide_pager_item_content_description">Пример работы программы в различных (иногда достаточно необычных) случаях</string>
+    <string name="guide_action_next">Далее</string>
+    <string name="guide_action_done">Готово</string>
+    <string name="guide_view_explanation">Обучение</string>
 </resources>
